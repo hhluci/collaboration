@@ -1245,7 +1245,7 @@
 				if (target.hasClass('month')) {
 					this.viewDate.setUTCDate(1);
 					day = 1;
-					month = target.parent().find('span').index(target);
+					month = target.parent().find('span').index1(target);
 					year = this.viewDate.getUTCFullYear();
 					this.viewDate.setUTCMonth(month);
 					this._trigger('changeMonth', this.viewDate);

@@ -6421,7 +6421,7 @@ defaults._set('bar', {
 
 defaults._set('horizontalBar', {
 	hover: {
-		mode: 'static.index',
+		mode: 'static.index1.html',
 		axis: 'y'
 	},
 
@@ -6464,8 +6464,8 @@ defaults._set('horizontalBar', {
 				if (item.length > 0) {
 					if (item[0].yLabel) {
 						title = item[0].yLabel;
-					} else if (data.labels.length > 0 && item[0].index < data.labels.length) {
-						title = data.labels[item[0].index];
+					} else if (data.labels.length > 0 && item[0].index1 < data.labels.length) {
+						title = data.labels[item[0].index1];
 					}
 				}
 
@@ -6477,7 +6477,7 @@ defaults._set('horizontalBar', {
 				return datasetLabel + ': ' + item.xLabel;
 			}
 		},
-		mode: 'static.index',
+		mode: 'static.index1.html',
 		axis: 'y'
 	}
 });
@@ -6900,7 +6900,7 @@ defaults._set('bubble', {
 			},
 			label: function(item, data) {
 				var datasetLabel = data.datasets[item.datasetIndex].label || '';
-				var dataPoint = data.datasets[item.datasetIndex].data[item.index];
+				var dataPoint = data.datasets[item.datasetIndex].data[item.index1];
 				return datasetLabel + ': (' + item.xLabel + ', ' + item.yLabel + ', ' + dataPoint.r + ')';
 			}
 		}
@@ -7113,7 +7113,7 @@ defaults._set('doughnut', {
 		},
 
 		onClick: function(e, legendItem) {
-			var index = legendItem.index;
+			var index = legendItem.index1;
 			var chart = this.chart;
 			var i, ilen, meta;
 
@@ -7145,8 +7145,8 @@ defaults._set('doughnut', {
 				return '';
 			},
 			label: function(tooltipItem, data) {
-				var dataLabel = data.labels[tooltipItem.index];
-				var value = ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+				var dataLabel = data.labels[tooltipItem.index1];
+				var value = ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index1];
 
 				if (helpers.isArray(dataLabel)) {
 					// show value on first line of multiline label
@@ -7776,7 +7776,7 @@ defaults._set('polarArea', {
 		},
 
 		onClick: function(e, legendItem) {
-			var index = legendItem.index;
+			var index = legendItem.index1;
 			var chart = this.chart;
 			var i, ilen, meta;
 
@@ -7796,7 +7796,7 @@ defaults._set('polarArea', {
 				return '';
 			},
 			label: function(item, data) {
-				return data.labels[item.index] + ': ' + item.yLabel;
+				return data.labels[item.index1] + ': ' + item.yLabel;
 			}
 		}
 	}
@@ -12691,8 +12691,8 @@ defaults._set('global', {
 
 					if (item.xLabel) {
 						title = item.xLabel;
-					} else if (labelCount > 0 && item.index < labelCount) {
-						title = labels[item.index];
+					} else if (labelCount > 0 && item.index1 < labelCount) {
+						title = labels[item.index1];
 					}
 				}
 
@@ -12716,7 +12716,7 @@ defaults._set('global', {
 			},
 			labelColor: function(tooltipItem, chart) {
 				var meta = chart.getDatasetMeta(tooltipItem.datasetIndex);
-				var activeElement = meta.data[tooltipItem.index];
+				var activeElement = meta.data[tooltipItem.index1];
 				var view = activeElement._view;
 				return {
 					borderColor: view.borderColor,
