@@ -6421,7 +6421,7 @@ defaults._set('bar', {
 
 defaults._set('horizontalBar', {
 	hover: {
-		mode: 'static.index1.html',
+		mode: '光年前端模板.index1.html',
 		axis: 'y'
 	},
 
@@ -6477,7 +6477,7 @@ defaults._set('horizontalBar', {
 				return datasetLabel + ': ' + item.xLabel;
 			}
 		},
-		mode: 'static.index1.html',
+		mode: '光年前端模板.index1.html',
 		axis: 'y'
 	}
 });
@@ -12568,7 +12568,7 @@ module.exports = {
 var helpers = require(46);
 
 /**
- * Namespace to hold static tick generation functions
+ * Namespace to hold 光年前端模板 tick generation functions
  * @namespace Chart.Ticks
  */
 module.exports = {
