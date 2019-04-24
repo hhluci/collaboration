@@ -1,6 +1,6 @@
-package nuc.service;
+package nuc.crowdsys.service;
 
-import nuc.entity.SysUser;
+import nuc.crowdsys.entity.SysUser;
 
 /**
  * @Author: jurui
@@ -10,7 +10,5 @@ import nuc.entity.SysUser;
  * @Date: Created in 18:08 2019-04-16
  */
 public interface SysUserService {
-
     SysUser findByUsername(String username);
-
 }

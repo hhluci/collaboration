@@ -1,7 +1,8 @@
-package nuc.service;
+package nuc.crowdsys.service;
 
-import nuc.entity.SysRole;
-import org.springframework.stereotype.Service;
+
+
+import nuc.crowdsys.entity.SysRole;
 
 import java.util.List;
 

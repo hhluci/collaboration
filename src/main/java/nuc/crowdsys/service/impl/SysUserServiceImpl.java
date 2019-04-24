@@ -1,8 +1,8 @@
-package nuc.service.impl;
+package nuc.crowdsys.service.impl;
 
-import nuc.entity.SysUser;
-import nuc.mapper.SysUserMapper;
-import nuc.service.SysUserService;
+import nuc.crowdsys.entity.SysUser;
+import nuc.crowdsys.mapper.SysUserMapper;
+import nuc.crowdsys.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +15,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SysUserServiceImpl implements SysUserService {
+    private final SysUserMapper userMapper;
     @Autowired
-    private SysUserMapper userMapper;
-
+    public SysUserServiceImpl(SysUserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
     @Override
     public SysUser findByUsername(String username) {
         return userMapper.findByUsername(username);

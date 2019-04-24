@@ -1,8 +1,8 @@
-package nuc.service.impl;
+package nuc.crowdsys.service.impl;
 
-import nuc.entity.SysRole;
-import nuc.mapper.SysRoleMapper;
-import nuc.service.SysRoleService;
+import nuc.crowdsys.entity.SysRole;
+import nuc.crowdsys.mapper.SysRoleMapper;
+import nuc.crowdsys.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

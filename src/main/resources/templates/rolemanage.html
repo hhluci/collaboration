@@ -236,10 +236,10 @@
                                                     <input type="checkbox" id="check-all"><span></span>
                                                 </label>
                                             </th>
-                                            <th>role_id</th>
-                                            <th>role_name</th>
-                                            <th>role_description</th>
-                                            <th>role_priv_level</th>
+                                            <th>id</th>
+                                            <th>role</th>
+                                            <th>description</th>
+                                            <th>available</th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
@@ -251,10 +251,10 @@
                                                 </label>
                                             </td>
 
-                                            <td th:text="${role.getRoleId()}"></td>
-                                            <td th:text="${role.getRoleName()}"></td>
-                                            <td th:text="${role.getRoleDescription()}"></td>
-                                            <td th:text="${role.getRolePrivLevel()}"></td>
+                                            <td th:text="${role.getId()}"></td>
+                                            <td th:text="${role.getRole()}"></td>
+                                            <td th:text="${role.getDescription()}"></td>
+                                            <td th:text="${role.getAvailable()}"></td>
 
                                             <td>
                                                 <div class="btn-group">

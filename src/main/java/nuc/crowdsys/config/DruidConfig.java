@@ -1,10 +1,9 @@
-package nuc.config;
+package nuc.crowdsys.config;
 
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -24,7 +23,6 @@ import java.util.Map;
  * @Date: Created in 16:35 2019-04-17
  */
 @Configuration
-@MapperScan("nuc.mapper")
 public class DruidConfig {
 
     //非常简单的配置druid数据库连接池
