@@ -36,7 +36,6 @@
                                 <li> <a href="/findAllRoles">角色管理</a> </li>
                                 <li> <a href="/findAllUsers">用户管理</a> </li>
                             </ul>
-
                         </li>
                     </ul>
                 </nav>
@@ -224,7 +223,7 @@
                             <div class="card-toolbar clearfix">
 
                                 <div class="toolbar-btn-action">
-                                    <a class="btn btn-primary m-r-5" href="#!"><i class="mdi mdi-plus"></i> 新增</a>
+                                    <a class="btn btn-primary m-r-5" href="/adduser"><i class="mdi mdi-plus"></i> 新增</a>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -238,30 +237,31 @@
                                                     <input type="checkbox" id="check-all"><span></span>
                                                 </label>
                                             </th>
-                                            <th>id</th>
-                                            <th>role</th>
-                                            <th>description</th>
-                                            <th>available</th>
-                                            <th>操作</th>
+                                            <th>uid</th>
+                                            <th>username</th>
+                                            <th>name</th>
+                                            <th>state</th>
+                                            <th>修改/删除</th>
+
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="role : ${allRoles}">
+                                        <tr th:each="user : ${allUsers}">
                                             <td>
                                                 <label class="lyear-checkbox checkbox-primary">
                                                     <input type="checkbox" name="ids[]" value="1"><span></span>
                                                 </label>
                                             </td>
 
-                                            <td th:text="${role.getId()}"></td>
-                                            <td th:text="${role.getRole()}"></td>
-                                            <td th:text="${role.getDescription()}"></td>
-                                            <td th:text="${role.getAvailable()}"></td>
+                                            <td th:text="${user.getUid()}"></td>
+                                            <td th:text="${user.getUsername()}"></td>
+                                            <td th:text="${user.getName()}"></td>
+                                            <td th:text="${user.getState()}"></td>
 
                                             <td>
                                                 <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
+                                                    <a class="btn btn-xs btn-default" th:href="@{'/toUpdate?uid='+${user.getUid()}}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                                                    <a class="btn btn-xs btn-default" th:href="@{'/delete?uid='+${user.getUid()}}" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
                                                 </div>
                                             </td>
 

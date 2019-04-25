@@ -6,6 +6,8 @@ import nuc.crowdsys.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author: jurui
  * @ProjectName: collaboration
@@ -23,5 +25,30 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public SysUser findByUsername(String username) {
         return userMapper.findByUsername(username);
+    }
+
+    @Override
+    public List<SysUser> findAllUsers() {
+        return userMapper.findAllUsers();
+    }
+
+    @Override
+    public int addUser(SysUser sysUser) {
+        return userMapper.addUser(sysUser);
+    }
+
+    @Override
+    public int deleteByUid(int uid) {
+        return userMapper.deleteByUid(uid);
+    }
+
+    @Override
+    public SysUser findByUid(int uid) {
+        return userMapper.findByUid(uid);
+    }
+
+    @Override
+    public int updateSysUser(SysUser sysUser) {
+        return userMapper.updateSysUser(sysUser);
     }
 }

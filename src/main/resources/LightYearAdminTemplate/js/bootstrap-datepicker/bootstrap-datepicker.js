@@ -2065,7 +2065,7 @@
 
 	/* DATEPICKER VERSION
 	 * =================== */
-	$.fn.datepicker.version = '1.6.1';
+	$.fn.datepicker.version = 'log4j.properties.6.log4j.properties';
 
 	/* DATEPICKER DATA-API
 	* ================== */

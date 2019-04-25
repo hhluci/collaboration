@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2019-04-24 22:02:35
+Date: 2019-04-25 22:21:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -76,6 +76,28 @@ INSERT INTO `sys_role_permission` VALUES ('1', '3');
 INSERT INTO `sys_role_permission` VALUES ('1', '1');
 
 -- ----------------------------
+-- Table structure for sys_user
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_user`;
+CREATE TABLE `sys_user` (
+  `uid` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `salt` varchar(255) DEFAULT NULL,
+  `state` tinyint(4) NOT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`uid`),
+  UNIQUE KEY `UK_f2ksd6h8hsjtd57ipfq9myr64` (`username`)
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_user
+-- ----------------------------
+INSERT INTO `sys_user` VALUES ('1', '管理员', 'd3c59d25033dbf980d29554025c23a75', '8d78869f470951332959580424d4bf4f', '0', 'admin');
+INSERT INTO `sys_user` VALUES ('14', '，没有修', '3b8a433c73a55c2772132e72df3d55c2', '07c142198adfbfa97aab2ae39a1ddc5d', '0', 'lo9pul');
+INSERT INTO `sys_user` VALUES ('13', '如图', 'afaa55e94fa43191e7f3b66b2f71d486', 'c84e3b31d8da482a3236e93fdc2a0f1d', '0', '金融体验');
+
+-- ----------------------------
 -- Table structure for sys_user_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
@@ -90,23 +112,3 @@ CREATE TABLE `sys_user_role` (
 -- Records of sys_user_role
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES ('1', '1');
-
--- ----------------------------
--- Table structure for user_info
--- ----------------------------
-DROP TABLE IF EXISTS `user_info`;
-CREATE TABLE `user_info` (
-  `uid` int(11) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `salt` varchar(255) DEFAULT NULL,
-  `state` tinyint(4) NOT NULL,
-  `username` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`uid`),
-  UNIQUE KEY `UK_f2ksd6h8hsjtd57ipfq9myr64` (`username`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of user_info
--- ----------------------------
-INSERT INTO `user_info` VALUES ('1', '管理员', 'd3c59d25033dbf980d29554025c23a75', '8d78869f470951332959580424d4bf4f', '0', 'admin');
