@@ -224,28 +224,53 @@
 
                             <div class="card-body">
 
-                                <form action="/sysUser/toAddUser" method="post" >
+                                <form action="/sysPermission/update" method="post" >
+
                                     <div class="form-group">
-                                        <label for="username">账号</label>
-                                        <input class="form-control" type="text" id="username" name="username" placeholder="请输入账号..">
+                                        <label for="id">ID</label>
+                                        <input class="form-control" type="text" id="id" name="id" th:value="${sysPermission.getId()}" readonly>
                                     </div>
+
+
                                     <div class="form-group">
-                                        <label for="name">昵称或者真实姓名</label>
-                                        <input class="form-control" type="text" id="name" name="name" placeholder="请输入昵称或者真实姓名..">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password">密码</label>
-                                        <input class="form-control" type="password" id="password" name="password" placeholder="请输入密码..">
+                                        <label for="available">权限是否可用(可用为1，不可用为0)</label>
+                                        <input class="form-control" type="text" id="available" name="available" placeholder="可用为1，不可用为0..">
                                     </div>
 
                                     <div class="form-group">
-                                        <input class="btn btn-primary" type="submit" value="添加用户">
-                                        <a class="btn btn-primary" href="/sysUser/findAllUsers">返回</a>
-                                        <div  th:text="${msg}"></div>
+                                        <label for="name">权限名称</label>
+                                        <input class="form-control" type="text" id="name" name="name" th:value="${sysPermission.getName()}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="parentId">父编号</label>
+                                        <input class="form-control" type="text" id="parentId" name="parentId" th:value="${sysPermission.getParentId()}">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="parentIds">父编号列表</label>
+                                        <input class="form-control" type="text" id="parentIds" name="parentIds" th:value="${sysPermission.getParentIds()}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="permission">权限字符串</label>
+                                        <input class="form-control" type="text" id="permission" name="permission" th:value="${sysPermission.getPermission()}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="resourceType">资源类型</label>
+                                        <input class="form-control" type="text" id="resourceType" name="resourceType" th:value="${sysPermission.getResourceType()}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="url">资源路径</label>
+                                        <input class="form-control" type="text" id="url" name="url" th:value="${sysPermission.getUrl()}">
+                                    </div>
+
+
+
+
+                                    <div class="form-group">
+                                        <input class="btn btn-primary" type="submit" value="提交更改">
+                                        <a class="btn btn-primary" href="/sysPermission/findAllPermission">返回用户列表</a>
                                     </div>
                                 </form>
-
-
 
                             </div>
                         </div>

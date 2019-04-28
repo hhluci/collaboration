@@ -3,6 +3,7 @@ package nuc.crowdsys.service;
 
 
 import nuc.crowdsys.entity.SysRole;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,5 +15,10 @@ import java.util.List;
  * @Date: Created in 14:33 2019-04-17
  */
 public interface SysRoleService {
-    public List<SysRole> findAllSysRoles();
+    List<SysRole> findAllSysRoles();
+    int addRole( SysRole sysRole);
+    int deleteByid(int id);
+    SysRole findByid(int id);
+    int updateSysRole(SysRole sysRole);
+
 }

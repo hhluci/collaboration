@@ -33,8 +33,9 @@
                         <li class="nav-item nav-item-has-subnav">
                             <a href="javascript:void(0)"><i class="mdi mdi-palette"></i> 系统管理</a>
                             <ul class="nav nav-subnav">
-                                <li> <a href="/findAllRoles">角色管理</a> </li>
-                                <li> <a href="/findAllUsers">用户管理</a> </li>
+                                <li> <a href="/sysRole/findAllRoles">角色管理</a> </li>
+                                <li> <a href="/sysUser/findAllUsers">用户管理</a> </li>
+                                <li> <a href="/sysPermission/findAllPermission">权限管理</a> </li>
                             </ul>
                         </li>
                     </ul>
@@ -223,7 +224,7 @@
 
                             <div class="card-body">
 
-                                <form action="/update" method="post" >
+                                <form action="/sysUser/update" method="post" >
                                     <div class="form-group">
                                         <label for="uid">ID</label>
                                         <input class="form-control" type="text" id="uid" name="uid" th:value="${sysUser.getUid()}" readonly>
@@ -247,7 +248,7 @@
 
                                     <div class="form-group">
                                         <input class="btn btn-primary" type="submit" value="提交更改">
-                                        <a class="btn btn-primary" href="/findAllUsers">返回用户列表</a>
+                                        <a class="btn btn-primary" href="/sysUser/findAllUsers">返回用户列表</a>
                                     </div>
                                 </form>
 

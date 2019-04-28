@@ -23,7 +23,7 @@
 
             <!-- logo -->
             <div id="logo" class="sidebar-header">
-                <a href="index.html"><img src="/images/logo-sidebar.png" title="LightYear" alt="LightYear" /></a>
+                <a href="../index.html"><img src="/images/logo-sidebar.png" title="LightYear" alt="LightYear" /></a>
             </div>
             <div class="lyear-layout-sidebar-scroll">
 
@@ -224,28 +224,12 @@
 
                             <div class="card-body">
 
-                                <form action="/sysUser/toAddUser" method="post" >
-                                    <div class="form-group">
-                                        <label for="username">账号</label>
-                                        <input class="form-control" type="text" id="username" name="username" placeholder="请输入账号..">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="name">昵称或者真实姓名</label>
-                                        <input class="form-control" type="text" id="name" name="name" placeholder="请输入昵称或者真实姓名..">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password">密码</label>
-                                        <input class="form-control" type="password" id="password" name="password" placeholder="请输入密码..">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input class="btn btn-primary" type="submit" value="添加用户">
-                                        <a class="btn btn-primary" href="/sysUser/findAllUsers">返回</a>
-                                        <div  th:text="${msg}"></div>
-                                    </div>
-                                </form>
+                                <div th:each="msg : ${msg}">
+                                <div  th:text="${msg}"></div>
+                                </div>
 
 
+                                <a class="btn btn-primary" href="/sysPermission/findAllPermission">返回角色列表</a>
 
                             </div>
                         </div>

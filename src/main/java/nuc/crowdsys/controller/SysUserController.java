@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static nuc.crowdsys.utils.SysUserEncry.encry;
@@ -20,7 +22,8 @@ import static nuc.crowdsys.utils.SysUserEncry.encry;
  * @Date: Created in 14:26 2019-04-25
  */
 @Controller
-public class UserController {
+@RequestMapping("/sysUser")
+public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
@@ -66,7 +69,7 @@ public class UserController {
         }else {
             model.addAttribute("msg","操作失败！");
         }
-        return "state";
+        return "sysuser/userstate";
     }
 
     @RequestMapping("/toUpdate")
@@ -92,7 +95,27 @@ public class UserController {
         }else {
             model.addAttribute("msg","操作失败！");
         }
-        return "state";
+        return "sysuser/userstate";
     }
 
+
+    //批量删除
+    @RequestMapping("/batchdelete")
+    public String batchDelete(String tag, Model model) {
+        String[] strs = tag.split(",");
+        List<String> msgs = new ArrayList<>();
+        for (int i = 0; i < strs.length; i++) {
+            try {
+                int msg = sysUserService.deleteByUid(Integer.parseInt(strs[i]));
+                if (msg > 0) {
+                    msgs.add("id为： " + strs[i] + " 删除成功！");
+                } else {
+                    msgs.add("id为： " + strs[i] + " 删除失败！");
+                }
+            } catch (Exception e) {
+            }
+        }
+        model.addAttribute("msg", msgs);
+        return "sysuser/userstate";
+    }
 }

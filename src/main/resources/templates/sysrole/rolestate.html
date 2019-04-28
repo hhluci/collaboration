@@ -23,7 +23,7 @@
 
             <!-- logo -->
             <div id="logo" class="sidebar-header">
-                <a href="index.html"><img src="/images/logo-sidebar.png" title="LightYear" alt="LightYear" /></a>
+                <a href="../index.html"><img src="/images/logo-sidebar.png" title="LightYear" alt="LightYear" /></a>
             </div>
             <div class="lyear-layout-sidebar-scroll">
 
@@ -33,8 +33,9 @@
                         <li class="nav-item nav-item-has-subnav">
                             <a href="javascript:void(0)"><i class="mdi mdi-palette"></i> 系统管理</a>
                             <ul class="nav nav-subnav">
-                                <li> <a href="/findAllRoles">角色管理</a> </li>
-                                <li> <a href="/findAllUsers">用户管理</a> </li>
+                                <li> <a href="/sysRole/findAllRoles">角色管理</a> </li>
+                                <li> <a href="/sysUser/findAllUsers">用户管理</a> </li>
+                                <li> <a href="/sysPermission/findAllPermission">权限管理</a> </li>
                             </ul>
                         </li>
                     </ul>
@@ -222,8 +223,10 @@
                         <div class="card">
 
                             <div class="card-body">
-                                <div  th:text="${msg}"></div>
-                                <a class="btn btn-primary" href="/findAllUsers">返回用户列表</a>
+                                <div th:each="msg : ${msg}">
+                                    <div  th:text="${msg}"></div>
+                                </div>
+                                <a class="btn btn-primary" href="/sysRole/findAllRoles">返回角色列表</a>
 
                             </div>
                         </div>
