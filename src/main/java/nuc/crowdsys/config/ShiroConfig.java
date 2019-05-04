@@ -20,7 +20,7 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");
@@ -36,38 +36,43 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
+
     @Bean
-    public HashedCredentialsMatcher hashedCredentialsMatcher(){
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
         hashedCredentialsMatcher.setHashAlgorithmName("md5");
         hashedCredentialsMatcher.setHashIterations(2);
         return hashedCredentialsMatcher;
     }
+
     @Bean
-    public ShiroAuthRealm shiroAuthRealm(){
+    public ShiroAuthRealm shiroAuthRealm() {
         ShiroAuthRealm shiroAuthRealm = new ShiroAuthRealm();
         shiroAuthRealm.setCredentialsMatcher(hashedCredentialsMatcher());
         return shiroAuthRealm;
     }
+
     @Bean
-    public SecurityManager securityManager(){
-        DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
+    public SecurityManager securityManager() {
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(shiroAuthRealm());
         return securityManager;
     }
+
     @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager){
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
     }
-    @Bean(name="simpleMappingExceptionResolver")
+
+    @Bean(name = "simpleMappingExceptionResolver")
     public SimpleMappingExceptionResolver
     createSimpleMappingExceptionResolver() {
         SimpleMappingExceptionResolver r = new SimpleMappingExceptionResolver();
         Properties mappings = new Properties();
         mappings.setProperty("DatabaseException", "databaseError");
-        mappings.setProperty("UnauthorizedException","403");
+        mappings.setProperty("UnauthorizedException", "403");
         r.setExceptionMappings(mappings);
         r.setDefaultErrorView("error");
         r.setExceptionAttribute("ex");

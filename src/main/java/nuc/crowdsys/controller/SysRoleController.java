@@ -27,9 +27,9 @@ public class SysRoleController {
     private SysRoleService sysRoleService;
 
     @GetMapping("/findAllRoles")
-    public String findAllRoles(Model model){
-        List<SysRole> allRoles=sysRoleService.findAllSysRoles();
-        model.addAttribute("allRoles",allRoles);
+    public String findAllRoles(Model model) {
+        List<SysRole> allRoles = sysRoleService.findAllSysRoles();
+        model.addAttribute("allRoles", allRoles);
         System.out.println(model);
         return "sysrole/rolemanage";
     }
@@ -43,11 +43,11 @@ public class SysRoleController {
     public String toAddUser(String available, String description, String role, Model model) {
 
         SysRole sysRole = new SysRole();
-        if (Integer.parseInt(available)==0){
+        if (Integer.parseInt(available) == 0) {
             sysRole.setAvailable(false);
-        }else if (Integer.parseInt(available)==1){
+        } else if (Integer.parseInt(available) == 1) {
             sysRole.setAvailable(true);
-        }else{
+        } else {
             model.addAttribute("msg", "添加失败！available取值错误");
             return "sysrole/addrole";
         }
@@ -65,12 +65,12 @@ public class SysRoleController {
 
 
     @RequestMapping("/delete")
-    public String deleteByUid(String id,Model model) {
+    public String deleteByUid(String id, Model model) {
         int msg = sysRoleService.deleteByid(Integer.parseInt(id));
-        if (msg>0){
-            model.addAttribute("msg","操作成功！");
-        }else {
-            model.addAttribute("msg","操作失败！");
+        if (msg > 0) {
+            model.addAttribute("msg", "操作成功！");
+        } else {
+            model.addAttribute("msg", "操作失败！");
         }
         return "sysrole/rolestate";
     }
@@ -85,21 +85,21 @@ public class SysRoleController {
     }
 
     @RequestMapping("/update")
-    public String update(String id,String role,String description,String available,Model model) {
-        SysRole sysRole=new SysRole();
+    public String update(String id, String role, String description, String available, Model model) {
+        SysRole sysRole = new SysRole();
         sysRole.setRole(role);
         sysRole.setDescription(description);
-        if (Integer.parseInt(available)==0){
+        if (Integer.parseInt(available) == 0) {
             sysRole.setAvailable(false);
-        }else if (Integer.parseInt(available)==1){
+        } else if (Integer.parseInt(available) == 1) {
             sysRole.setAvailable(true);
         }
         sysRole.setId(Integer.parseInt(id));
-        int msg=sysRoleService.updateSysRole(sysRole);
-        if (msg>0){
-            model.addAttribute("msg","操作成功！");
-        }else {
-            model.addAttribute("msg","操作失败！");
+        int msg = sysRoleService.updateSysRole(sysRole);
+        if (msg > 0) {
+            model.addAttribute("msg", "操作成功！");
+        } else {
+            model.addAttribute("msg", "操作失败！");
         }
         return "sysrole/rolestate";
     }

@@ -273,7 +273,7 @@
                                             <th>username</th>
                                             <th>name</th>
                                             <th>state</th>
-                                            <th>修改/删除</th>
+                                            <th>修改/删除/绑定角色</th>
 
                                         </tr>
                                         </thead>
@@ -295,6 +295,7 @@
                                                 <div class="btn-group">
                                                     <a class="btn btn-xs btn-default" th:href="@{'/sysUser/toUpdate?uid='+${user.getUid()}}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
                                                     <a class="btn btn-xs btn-default" th:href="@{'/sysUser/delete?uid='+${user.getUid()}}" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
+                                                    <a class="btn btn-xs btn-default" th:href="@{'/SysUserRole/TosetRole?uid='+${user.getUid()}}" title="绑定角色" data-toggle="tooltip"><i class="mdi mdi-settings"></i></a>
                                                 </div>
                                             </td>
 

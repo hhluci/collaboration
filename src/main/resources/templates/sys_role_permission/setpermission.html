@@ -14,7 +14,99 @@
     <link href="/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="/css/style.min.css" rel="stylesheet">
 </head>
+<style>
+    .content {
+        display: flex;
+        justify-content: center;
+        /*align-items: center;*/
+        width: 100%;
+        height: 600px;
+    }
 
+    .list {
+        display: flex;
+        justify-content: space-around;
+        width: 800px;
+    }
+
+    .item {
+        flex: 0 0 auto;
+    }
+
+    .box {
+        width: 300px;
+    }
+
+    .action {
+        width: 150px;
+        display: flex;
+        flex-direction: column;
+        /*justify-content: center;*/
+    }
+
+    .s1 {
+        width: 300px;
+    }
+
+    h4 {
+        text-align: center;
+    }
+
+    select {
+        width: 100%;
+    }
+
+    button {
+        margin: 5px;
+    }
+
+</style>
+<script>
+    function add() {
+        // 获取两个选择框
+        const slt1Elm = document.querySelector('#slt1');
+        const slt2Elm = document.querySelector('#slt2');
+
+        // 获取第一个框中选中的元素
+        const opt1Elms = slt1Elm.querySelectorAll('option');
+        // 将选中的元素放进第二个框中
+        for (let i = 0; i < opt1Elms.length; i++) {
+            if (opt1Elms[i].selected === true) slt2Elm.appendChild(opt1Elms[i]);
+        }
+    }
+
+    function remove() {
+        // 获取两个选择框
+        const slt1Elm = document.querySelector('#slt1');
+        const slt2Elm = document.querySelector('#slt2');
+
+        // 获取第二个框中选中的元素
+        const opt2Elms = slt2Elm.querySelectorAll('option');
+        // 将选中的元素放进第一个框中
+        for (let i = 0; i < opt2Elms.length; i++) {
+            if (opt2Elms[i].selected === true) slt1Elm.appendChild(opt2Elms[i]);
+        }
+    }
+
+    function commit() {
+        // 获取两个选择框
+        const slt2Elm = document.querySelector('#slt2');
+
+        // 获取第二个框中选中的元素
+        const opt2Elms = slt2Elm.querySelectorAll('option');
+        var ids = [];
+        for (let i = 0; i < opt2Elms.length; i++) {
+            var id = opt2Elms[i].value;
+            ids.push(id);
+        }
+        var allId = ids.join(",");
+        if (!confirm("确定将这些权限授予此角色么?")) {
+            return;
+        }
+        var roleId = document.getElementById("inputRoleId").value;
+        window.location.href = "/SysRolePermission/setPermission?roleId=" + roleId + "&allId=" + allId;
+    }
+</script>
 <body>
 <div class="lyear-layout-web">
     <div class="lyear-layout-container">
@@ -220,66 +312,53 @@
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="card">
+                        <div class="card-header"><h4>权限授予</h4></div>
+                        <div class="form-group">
+                            <label>用户信息</label>
+                            <input id="inputRoleId" type="hidden" th:value="${sysRole.getId()}">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th th:text="'id:  '+${sysRole.getId()}"></th>
+                                    <th th:text="'角色:  '+${sysRole.getRole()}"></th>
+                                    <th th:text="'角色描述:  '+${sysRole.getDescription()}"></th>
+                                    <th th:text="'是否可用:  '+${sysRole.getAvailable()}"></th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
 
-                            <div class="card-body">
-
-                                <form action="/sysPermission/update" method="post">
-
-                                    <div class="form-group">
-                                        <label for="id">ID</label>
-                                        <input class="form-control" type="text" id="id" name="id"
-                                               th:value="${sysPermission.getId()}" readonly>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label for="available">权限是否可用(可用为1，不可用为0)</label>
-                                        <input class="form-control" type="text" id="available" name="available"
-                                               placeholder="可用为1，不可用为0..">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="name">权限名称</label>
-                                        <input class="form-control" type="text" id="name" name="name"
-                                               th:value="${sysPermission.getName()}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="parentId">父编号</label>
-                                        <input class="form-control" type="text" id="parentId" name="parentId"
-                                               th:value="${sysPermission.getParentId()}">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="parentIds">父编号列表</label>
-                                        <input class="form-control" type="text" id="parentIds" name="parentIds"
-                                               th:value="${sysPermission.getParentIds()}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="permission">权限字符串</label>
-                                        <input class="form-control" type="text" id="permission" name="permission"
-                                               th:value="${sysPermission.getPermission()}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="resourceType">资源类型</label>
-                                        <input class="form-control" type="text" id="resourceType" name="resourceType"
-                                               th:value="${sysPermission.getResourceType()}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="url">资源路径</label>
-                                        <input class="form-control" type="text" id="url" name="url"
-                                               th:value="${sysPermission.getUrl()}">
-                                    </div>
+                        <div class="content">
+                            <div class="list">
+                                <div class="item box">
+                                    <h4>未选择的权限</h4>
+                                    <select name="" id="slt1" multiple class="s1" size="7">
+                                        <div th:each="notSelectPermission : ${notSelectedPermissions}">
+                                            <option th:value="${notSelectPermission.getId()}"><span
+                                                    th:text="${notSelectPermission.getName()}"></span></option>
+                                        </div>
+                                    </select>
+                                </div>
+                                <div class="item action">
+                                    <h4>操作</h4>
+                                    <button class="btn btn-primary" onclick="add()">添加</button>
+                                    <button class="btn btn-primary" onclick="remove()">移除</button>
+                                    <button class="btn btn-primary" onclick="commit()">提交</button>
+                                </div>
+                                <div class="item box">
+                                    <h4>已选择的权限</h4>
+                                    <select name="" id="slt2" class="s1" multiple size="7">
+                                        <div th:each="selectPermission : ${selectedPermissions}">
+                                            <option th:value="${selectPermission.getId()}"><span
+                                                    th:text="${selectPermission.getName()}"></span></option>
+                                        </div>
 
 
-                                    <div class="form-group">
-                                        <input class="btn btn-primary" type="submit" value="提交更改">
-                                        <a class="btn btn-primary" href="/sysPermission/findAllPermission">返回用户列表</a>
-                                    </div>
-                                </form>
-
+                                    </select>
+                                </div>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
@@ -294,7 +373,10 @@
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/perfect-scrollbar.min.js"></script>
 <script type="text/javascript" src="/js/main.min.js"></script>
+<script type="text/javascript">
 
+
+</script>
 
 </body>
 </html>

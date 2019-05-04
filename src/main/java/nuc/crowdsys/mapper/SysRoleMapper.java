@@ -1,7 +1,6 @@
 package nuc.crowdsys.mapper;
 
 import nuc.crowdsys.entity.SysRole;
-import nuc.crowdsys.entity.SysUser;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -21,10 +20,7 @@ public interface SysRoleMapper {
     SysRole findByid(int id);
 
     @Update("update sys_role set role=#{sysRole.role},description=#{sysRole.description},available=#{sysRole.available} where id=#{sysRole.id}")
-    int updateSysRole(@Param("sysRole")SysRole sysRole);
-
-
-
+    int updateSysRole(@Param("sysRole") SysRole sysRole);
 
 
 }

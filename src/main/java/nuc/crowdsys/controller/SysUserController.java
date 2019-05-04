@@ -62,12 +62,12 @@ public class SysUserController {
     }
 
     @RequestMapping("/delete")
-    public String deleteByUid(String uid,Model model) {
+    public String deleteByUid(String uid, Model model) {
         int msg = sysUserService.deleteByUid(Integer.parseInt(uid));
-        if (msg>0){
-            model.addAttribute("msg","操作成功！");
-        }else {
-            model.addAttribute("msg","操作失败！");
+        if (msg > 0) {
+            model.addAttribute("msg", "操作成功！");
+        } else {
+            model.addAttribute("msg", "操作失败！");
         }
         return "sysuser/userstate";
     }
@@ -81,19 +81,19 @@ public class SysUserController {
     }
 
     @RequestMapping("/update")
-    public String update(String uid,String username,String name,String password,String state,Model model) {
-        SysUser sysUser=new SysUser();
+    public String update(String uid, String username, String name, String password, String state, Model model) {
+        SysUser sysUser = new SysUser();
         sysUser.setUid(Integer.parseInt(uid));
         sysUser.setUsername(username);
         sysUser.setName(name);
         sysUser.setPassword(password);
         sysUser.setState((byte) (Integer.parseInt(state)));
-        sysUser=encry(sysUser);
-        int msg=sysUserService.updateSysUser(sysUser);
-        if (msg>0){
-            model.addAttribute("msg","操作成功！");
-        }else {
-            model.addAttribute("msg","操作失败！");
+        sysUser = encry(sysUser);
+        int msg = sysUserService.updateSysUser(sysUser);
+        if (msg > 0) {
+            model.addAttribute("msg", "操作成功！");
+        } else {
+            model.addAttribute("msg", "操作失败！");
         }
         return "sysuser/userstate";
     }

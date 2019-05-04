@@ -25,13 +25,4 @@ public interface SysPermissionMapper {
     int updateSysPermission(@Param("sysPermission") SysPermission sysPermission);
 
 
-
-
-
-
-
-
-
-
-
 }

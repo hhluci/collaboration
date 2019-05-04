@@ -13,7 +13,7 @@ import org.apache.shiro.util.ByteSource;
  * @Description:
  * @Date: Created in 18:22 2019-04-25
  */
-public  class SysUserEncry {
+public class SysUserEncry {
     //随机数生成器
     private static RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
 
@@ -22,11 +22,11 @@ public  class SysUserEncry {
     //散列迭代次数
     private static final int hashIterations = 2;
 
-    public static SysUser encry(SysUser sysUser){
+    public static SysUser encry(SysUser sysUser) {
         sysUser.setSalt(randomNumberGenerator.nextBytes().toHex());
         String newPassword =
-                new SimpleHash(algorithmName,sysUser.getPassword(),
-                        ByteSource.Util.bytes(sysUser.getCredentialsSalt()),hashIterations).toHex();
+                new SimpleHash(algorithmName, sysUser.getPassword(),
+                        ByteSource.Util.bytes(sysUser.getCredentialsSalt()), hashIterations).toHex();
 
         sysUser.setPassword(newPassword);
         return sysUser;

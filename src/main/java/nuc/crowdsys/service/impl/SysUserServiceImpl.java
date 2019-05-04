@@ -18,10 +18,12 @@ import java.util.List;
 @Service
 public class SysUserServiceImpl implements SysUserService {
     private final SysUserMapper userMapper;
+
     @Autowired
     public SysUserServiceImpl(SysUserMapper userMapper) {
         this.userMapper = userMapper;
     }
+
     @Override
     public SysUser findByUsername(String username) {
         return userMapper.findByUsername(username);

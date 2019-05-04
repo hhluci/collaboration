@@ -13,9 +13,13 @@ import java.util.List;
  */
 public interface SysUserService {
     SysUser findByUsername(String username);
+
     List<SysUser> findAllUsers();
+
     int addUser(SysUser sysUser);
+
     int deleteByUid(int uid);
+
     SysUser findByUid(int uid);
 
     int updateSysUser(SysUser sysUser);

@@ -16,16 +16,18 @@ import javax.annotation.Resource;
 public class ShiroAuthRealm extends AuthorizingRealm {
     @Resource
     private SysUserService sysUserService;
+
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         return null;
     }
+
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token)
             throws AuthenticationException {
-         String username = (String)token.getPrincipal();
-         SysUser sysUser = sysUserService.findByUsername(username);
-        if(sysUser == null){
+        String username = (String) token.getPrincipal();
+        SysUser sysUser = sysUserService.findByUsername(username);
+        if (sysUser == null) {
             return null;
         }
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(

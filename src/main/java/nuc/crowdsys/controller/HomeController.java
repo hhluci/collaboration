@@ -10,12 +10,13 @@ import java.util.Map;
 
 @Controller
 public class HomeController {
-    @RequestMapping({"/","/index"})
-    public String index(){
-        return"/index";
+    @RequestMapping({"/", "/index"})
+    public String index() {
+        return "/index";
     }
+
     @RequestMapping("/login")
-    public String login(HttpServletRequest request, Map<String, Object> map) throws Exception{
+    public String login(HttpServletRequest request, Map<String, Object> map) throws Exception {
         String exception = (String) request.getAttribute("shiroLoginFailure");
         String msg = "";
         if (exception != null) {
@@ -26,14 +27,15 @@ public class HomeController {
             } else if ("kaptchaValidateFailed".equals(exception)) {
                 msg = "kaptchaValidateFailed -- > 验证码错误";
             } else {
-                msg = "else >> "+exception;
+                msg = "else >> " + exception;
             }
         }
         map.put("msg", msg);
         return "/login";
     }
+
     @RequestMapping("/403")
-    public String unauthorizedRole(){
+    public String unauthorizedRole() {
         return "403";
     }
 }
