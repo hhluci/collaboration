@@ -17,6 +17,7 @@ public interface SysUserRoleService {
 
     List<SysUserRole> findUserRoleById(int uid);
 
+
     List<SysRole> getNotSelectedRoles(String uid);
 
     List<SysRole> getSelectedRoles(String uid);

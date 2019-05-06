@@ -1,6 +1,6 @@
 <!DOCTYPE html >
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.w3.org/1999/xhtml">
 <html lang="zh">
 <head>
     <meta charset="utf-8">
@@ -125,9 +125,10 @@
                         <li class="nav-item nav-item-has-subnav">
                             <a href="javascript:void(0)"><i class="mdi mdi-palette"></i> 系统管理</a>
                             <ul class="nav nav-subnav">
-                                <li><a href="/sysRole/findAllRoles">角色管理</a></li>
-                                <li><a href="/sysUser/findAllUsers">用户管理</a></li>
-                                <li><a href="/sysPermission/findAllPermission">权限管理</a></li>
+                                <li><a href="/sysRole/findAllRoles" shiro:hasPermission="sysrole_view">角色管理</a></li>
+                                <li><a href="/sysUser/findAllUsers" shiro:hasPermission="sysuser_view">用户管理</a></li>
+                                <li><a href="/sysPermission/findAllPermission" shiro:hasPermission="syspermission_view">权限管理</a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -167,7 +168,7 @@
                                 <li><a href=""><i class=""></i> 修改密码</a></li>
                                 <li><a href="javascript:void(0)"><i class="mdi mdi-delete"></i> 清空缓存</a></li>
                                 <li class="divider"></li>
-                                <li><a href="/login"><i class="mdi mdi-logout-variant"></i> 退出登录</a></li>
+                                <li><a href="/logout"><i class="mdi mdi-logout-variant"></i> 退出登录</a></li>
                             </ul>
                         </li>
                         <!--切换主题配色-->

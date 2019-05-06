@@ -2,6 +2,7 @@ package nuc.crowdsys.controller;
 
 import nuc.crowdsys.entity.SysUser;
 import nuc.crowdsys.service.SysUserService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,7 @@ public class SysUserController {
     private SysUserService sysUserService;
 
     @GetMapping("/findAllUsers")
+    @RequiresPermissions("sysuser_view")
     public String findAllRoles(Model model) {
         List<SysUser> allUsers = sysUserService.findAllUsers();
         model.addAttribute("allUsers", allUsers);
@@ -35,11 +37,13 @@ public class SysUserController {
     }
 
     @GetMapping("/adduser")
+    @RequiresPermissions("sysuser_add")
     public String addUser() {
         return "sysuser/adduser";
     }
 
     @PostMapping("/toAddUser")
+    @RequiresPermissions("sysuser_add")
     public String toAddUser(String username, String name, String password, Model model) {
 
         SysUser sysUser = new SysUser();
@@ -62,6 +66,7 @@ public class SysUserController {
     }
 
     @RequestMapping("/delete")
+    @RequiresPermissions("sysuser_delete")
     public String deleteByUid(String uid, Model model) {
         int msg = sysUserService.deleteByUid(Integer.parseInt(uid));
         if (msg > 0) {
@@ -73,6 +78,7 @@ public class SysUserController {
     }
 
     @RequestMapping("/toUpdate")
+    @RequiresPermissions("sysuser_update")
     public String updateByUid(String uid, Model model) {
         SysUser sysUser = sysUserService.findByUid(Integer.parseInt(uid));
         model.addAttribute("sysUser", sysUser);
@@ -81,6 +87,7 @@ public class SysUserController {
     }
 
     @RequestMapping("/update")
+    @RequiresPermissions("sysuser_update")
     public String update(String uid, String username, String name, String password, String state, Model model) {
         SysUser sysUser = new SysUser();
         sysUser.setUid(Integer.parseInt(uid));
@@ -101,6 +108,7 @@ public class SysUserController {
 
     //批量删除
     @RequestMapping("/batchdelete")
+    @RequiresPermissions("sysuser_delete")
     public String batchDelete(String tag, Model model) {
         String[] strs = tag.split(",");
         List<String> msgs = new ArrayList<>();

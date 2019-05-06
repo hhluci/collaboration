@@ -1,6 +1,6 @@
 <!DOCTYPE html >
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.w3.org/1999/xhtml">
 <html lang="zh">
 <head>
     <meta charset="utf-8">
@@ -62,9 +62,10 @@
                         <li class="nav-item nav-item-has-subnav">
                             <a href="javascript:void(0)"><i class="mdi mdi-palette"></i> 系统管理</a>
                             <ul class="nav nav-subnav">
-                                <li><a href="/sysRole/findAllRoles">角色管理</a></li>
-                                <li><a href="/sysUser/findAllUsers">用户管理</a></li>
-                                <li><a href="/sysPermission/findAllPermission">权限管理</a></li>
+                                <li><a href="/sysRole/findAllRoles" shiro:hasPermission="sysrole_view">角色管理</a></li>
+                                <li><a href="/sysUser/findAllUsers" shiro:hasPermission="sysuser_view">用户管理</a></li>
+                                <li><a href="/sysPermission/findAllPermission" shiro:hasPermission="syspermission_view">权限管理</a>
+                                </li>
                             </ul>
 
                         </li>
@@ -105,7 +106,7 @@
                                 <li><a href=""><i class=""></i> 修改密码</a></li>
                                 <li><a href="javascript:void(0)"><i class="mdi mdi-delete"></i> 清空缓存</a></li>
                                 <li class="divider"></li>
-                                <li><a href="/login"><i class="mdi mdi-logout-variant"></i> 退出登录</a></li>
+                                <li><a href="/logout"><i class="mdi mdi-logout-variant"></i> 退出登录</a></li>
                             </ul>
                         </li>
                         <!--切换主题配色-->
@@ -254,10 +255,11 @@
                             <div class="card-toolbar clearfix">
 
                                 <div class="toolbar-btn-action">
-                                    <a class="btn btn-primary m-r-5" href="/sysRole/addRole"><i
+                                    <a class="btn btn-primary m-r-5" href="/sysRole/addRole"
+                                       shiro:hasPermission="sysrole_add"><i
                                             class="mdi mdi-plus"></i> 新增</a>
                                     <input class="btn btn-primary m-r-5" type="button" id="button1"
-                                           onclick="batchdelete()" value="批量删除">
+                                           onclick="batchdelete()" value="批量删除" shiro:hasPermission="sysrole_delete">
                                 </div>
                             </div>
                             <div class="card-body">
@@ -275,7 +277,10 @@
                                             <th>角色名称</th>
                                             <th>角色描述</th>
                                             <th>是否可用</th>
-                                            <th>修改/删除/设置用户/设置权限</th>
+                                            <th><span shiro:hasPermission="sysrole_update">修改</span>
+                                                <span shiro:hasPermission="sysrole_delete">/删除</span>
+                                                <span shiro:hasPermission="sysrole_setusers">/绑定用户</span>
+                                                <span shiro:hasPermission="sysrole_setpermissions">/设置权限</span></th>
 
                                         </tr>
                                         </thead>
@@ -297,17 +302,22 @@
                                                 <div class="btn-group">
                                                     <a class="btn btn-xs btn-default"
                                                        th:href="@{'/sysRole/toUpdate?id='+${role.getId()}}" title="编辑"
-                                                       data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                                                       data-toggle="tooltip" shiro:hasPermission="sysrole_update"><i
+                                                            class="mdi mdi-pencil"
+                                                    ></i></a>
                                                     <a class="btn btn-xs btn-default"
                                                        th:href="@{'/sysRole/delete?id='+${role.getId()}}" title="删除"
-                                                       data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
+                                                       data-toggle="tooltip" shiro:hasPermission="sysrole_delete"><i
+                                                            class="mdi mdi-window-close"></i></a>
                                                     <a class="btn btn-xs btn-default"
                                                        th:href="@{'/SysRoleUser/TosetUser?roleId='+${role.getId()}}"
-                                                       title="绑定用户" data-toggle="tooltip"><i
+                                                       title="绑定用户" data-toggle="tooltip"
+                                                       shiro:hasPermission="sysrole_setusers"><i
                                                             class="mdi mdi-settings"></i></a>
                                                     <a class="btn btn-xs btn-default"
                                                        th:href="@{'/SysRolePermission/TosetPermission?roleId='+${role.getId()}}"
-                                                       title="设置权限" data-toggle="tooltip"><i
+                                                       title="设置权限" data-toggle="tooltip"
+                                                       shiro:hasPermission="sysrole_setpermissions"><i
                                                             class="mdi mdi-settings"></i></a>
 
                                                 </div>

@@ -5,6 +5,7 @@ import nuc.crowdsys.entity.SysUser;
 import nuc.crowdsys.entity.SysUserRole;
 import nuc.crowdsys.service.SysRoleService;
 import nuc.crowdsys.service.SysRoleUserService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,7 @@ public class SysRoleUserController {
     private SysRoleUserService sysRoleUserService;
 
     @RequestMapping("/TosetUser")
+    @RequiresPermissions("sysrole_setusers")
     public String toSetUser(String roleId, Model model) {
         SysRole sysRole = sysRoleService.findByid(Integer.parseInt(roleId));
         List<SysUser> notSelectedUsers = sysRoleUserService.getNotSelectedUsers(roleId);
@@ -42,6 +44,7 @@ public class SysRoleUserController {
     }
 
     @RequestMapping("/setUser")
+    @RequiresPermissions("sysrole_setusers")
     public String setUser(String roleId, String[] allId, Model model) {
         List<String> msgs = new ArrayList<>();
         int msg1 = sysRoleUserService.deleteAllByRoleId(roleId);

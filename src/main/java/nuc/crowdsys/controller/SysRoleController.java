@@ -3,6 +3,7 @@ package nuc.crowdsys.controller;
 import nuc.crowdsys.entity.SysRole;
 import nuc.crowdsys.entity.SysUser;
 import nuc.crowdsys.service.SysRoleService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,7 @@ public class SysRoleController {
     private SysRoleService sysRoleService;
 
     @GetMapping("/findAllRoles")
+    @RequiresPermissions("sysrole_view")
     public String findAllRoles(Model model) {
         List<SysRole> allRoles = sysRoleService.findAllSysRoles();
         model.addAttribute("allRoles", allRoles);
@@ -35,11 +37,13 @@ public class SysRoleController {
     }
 
     @GetMapping("/addRole")
+    @RequiresPermissions("sysrole_add")
     public String addUser() {
         return "sysrole/addrole";
     }
 
     @PostMapping("/toAddRole")
+    @RequiresPermissions("sysrole_add")
     public String toAddUser(String available, String description, String role, Model model) {
 
         SysRole sysRole = new SysRole();
@@ -65,6 +69,7 @@ public class SysRoleController {
 
 
     @RequestMapping("/delete")
+    @RequiresPermissions("sysrole_delete")
     public String deleteByUid(String id, Model model) {
         int msg = sysRoleService.deleteByid(Integer.parseInt(id));
         if (msg > 0) {
@@ -77,6 +82,7 @@ public class SysRoleController {
 
 
     @RequestMapping("/toUpdate")
+    @RequiresPermissions("sysrole_update")
     public String updateByUid(String id, Model model) {
         SysRole sysRole = sysRoleService.findByid(Integer.parseInt(id));
         model.addAttribute("sysRole", sysRole);
@@ -85,6 +91,7 @@ public class SysRoleController {
     }
 
     @RequestMapping("/update")
+    @RequiresPermissions("sysrole_update")
     public String update(String id, String role, String description, String available, Model model) {
         SysRole sysRole = new SysRole();
         sysRole.setRole(role);
@@ -107,6 +114,7 @@ public class SysRoleController {
 
     //批量删除
     @RequestMapping("/batchdelete")
+    @RequiresPermissions("sysrole_delete")
     public String batchDelete(String tag, Model model) {
         String[] strs = tag.split(",");
         List<String> msgs = new ArrayList<>();

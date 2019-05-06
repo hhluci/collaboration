@@ -6,6 +6,7 @@ import nuc.crowdsys.entity.SysRolePermission;
 import nuc.crowdsys.entity.SysUserRole;
 import nuc.crowdsys.service.SysRolePermissionService;
 import nuc.crowdsys.service.SysRoleService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,7 @@ public class SysRolePermissionController {
     private SysRolePermissionService sysRolePermissionService;
 
     @RequestMapping("/TosetPermission")
+    @RequiresPermissions("sysrole_setpermissions")
     public String toSetUser(String roleId, Model model) {
         SysRole sysRole = sysRoleService.findByid(Integer.parseInt(roleId));
 
@@ -44,6 +46,7 @@ public class SysRolePermissionController {
     }
 
     @RequestMapping("/setPermission")
+    @RequiresPermissions("sysrole_setpermissions")
     public String setUser(String roleId, String[] allId, Model model) {
         List<String> msgs = new ArrayList<>();
         int msg1 = sysRolePermissionService.deleteAllByRoleId(roleId);

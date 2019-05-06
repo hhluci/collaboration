@@ -4,6 +4,7 @@ import nuc.crowdsys.entity.SysPermission;
 import nuc.crowdsys.entity.SysRole;
 import nuc.crowdsys.service.SysPermissionService;
 import nuc.crowdsys.service.SysRoleService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,7 @@ public class SysPermissionController {
     private SysPermissionService sysPermissionService;
 
     @GetMapping("/findAllPermission")
+    @RequiresPermissions("syspermission_view")
     public String findAllRoles(Model model) {
         List<SysPermission> allPermissions = sysPermissionService.findAllSysPermissions();
         model.addAttribute("allPermissions", allPermissions);
@@ -35,11 +37,13 @@ public class SysPermissionController {
     }
 
     @GetMapping("/addPermission")
+    @RequiresPermissions({"syspermission_add"})
     public String addPermission() {
         return "syspermission/addpermission";
     }
 
     @PostMapping("/toAddPermission")
+    @RequiresPermissions("syspermission_add")
     public String toAddUser(SysPermission sysPermission, Model model) {
         System.out.println(sysPermission);
 
@@ -55,6 +59,7 @@ public class SysPermissionController {
 
 
     @RequestMapping("/delete")
+    @RequiresPermissions("syspermission_delete")
     public String deleteByid(String id, Model model) {
         int msg = sysPermissionService.deleteByid(Integer.parseInt(id));
         if (msg > 0) {
@@ -67,6 +72,7 @@ public class SysPermissionController {
 
 
     @RequestMapping("/toUpdate")
+    @RequiresPermissions("syspermission_update")
     public String updateById(String id, Model model) {
         SysPermission sysPermission = sysPermissionService.findByid(Integer.parseInt(id));
         model.addAttribute("sysPermission", sysPermission);
@@ -75,6 +81,7 @@ public class SysPermissionController {
     }
 
     @RequestMapping("/update")
+    @RequiresPermissions("syspermission_update")
     public String update(SysPermission sysPermission, Model model) {
 
         int msg = sysPermissionService.updateSysPermission(sysPermission);
@@ -88,6 +95,7 @@ public class SysPermissionController {
 
     //批量删除
     @RequestMapping("/batchdelete")
+    @RequiresPermissions("syspermission_delete")
     public String batchDelete(String tag, Model model) {
         String[] strs = tag.split(",");
         List<String> msgs = new ArrayList<>();
