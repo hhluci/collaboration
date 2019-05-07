@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2019-05-06 11:34:55
+Date: 2019-05-07 10:41:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,26 +29,27 @@ CREATE TABLE `sys_permission` (
   `resource_type` enum('button','menu') DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_permission
 -- ----------------------------
-INSERT INTO `sys_permission` VALUES ('17', null, '系统用户修改', null, null, 'sysuser_update', null, null);
-INSERT INTO `sys_permission` VALUES ('16', null, '系统用户删除', null, null, 'sysuser_delete', null, null);
-INSERT INTO `sys_permission` VALUES ('14', null, '系统用户管理', null, null, 'sysuser_view', null, null);
-INSERT INTO `sys_permission` VALUES ('15', null, '系统用户添加', null, null, 'sysuser_add', null, null);
-INSERT INTO `sys_permission` VALUES ('18', null, '用户绑定角色', null, null, 'sysuser_setroles', null, null);
-INSERT INTO `sys_permission` VALUES ('19', null, '系统角色管理', null, null, 'sysrole_view', null, '');
-INSERT INTO `sys_permission` VALUES ('20', null, '系统角色添加', null, null, 'sysrole_add', null, '');
-INSERT INTO `sys_permission` VALUES ('21', null, '系统角色删除', null, null, 'sysrole_delete', null, null);
-INSERT INTO `sys_permission` VALUES ('22', null, '系统角色修改', null, null, 'sysrole_update', null, null);
-INSERT INTO `sys_permission` VALUES ('23', null, '角色绑定用户', null, null, 'sysrole_setusers', null, null);
-INSERT INTO `sys_permission` VALUES ('24', null, '角色绑定权限', null, null, 'sysrole_setpermissions', null, null);
-INSERT INTO `sys_permission` VALUES ('25', null, '系统权限管理', null, null, 'syspermission_view', null, null);
-INSERT INTO `sys_permission` VALUES ('26', null, '系统权限添加', null, null, 'syspermission_add', null, null);
-INSERT INTO `sys_permission` VALUES ('27', null, '系统权限删除', null, null, 'syspermission_delete', null, null);
-INSERT INTO `sys_permission` VALUES ('28', null, '系统权限修改', null, null, 'syspermission_update', null, null);
+INSERT INTO `sys_permission` VALUES ('17', null, '系统用户修改', '14', null, 'sysuser_update', null, null);
+INSERT INTO `sys_permission` VALUES ('16', null, '系统用户删除', '14', null, 'sysuser_delete', null, null);
+INSERT INTO `sys_permission` VALUES ('14', null, '系统用户管理', '32', null, 'sysuser_view', null, null);
+INSERT INTO `sys_permission` VALUES ('15', null, '系统用户添加', '14', null, 'sysuser_add', null, null);
+INSERT INTO `sys_permission` VALUES ('18', null, '用户绑定角色', '14', null, 'sysuser_setroles', null, null);
+INSERT INTO `sys_permission` VALUES ('19', null, '系统角色管理', '32', null, 'sysrole_view', null, '');
+INSERT INTO `sys_permission` VALUES ('20', null, '系统角色添加', '19', null, 'sysrole_add', null, '');
+INSERT INTO `sys_permission` VALUES ('21', null, '系统角色删除', '19', null, 'sysrole_delete', null, null);
+INSERT INTO `sys_permission` VALUES ('22', null, '系统角色修改', '19', null, 'sysrole_update', null, null);
+INSERT INTO `sys_permission` VALUES ('23', null, '角色绑定用户', '19', null, 'sysrole_setusers', null, null);
+INSERT INTO `sys_permission` VALUES ('24', null, '角色绑定权限', '19', null, 'sysrole_setpermissions', null, null);
+INSERT INTO `sys_permission` VALUES ('25', null, '系统权限管理', '32', null, 'syspermission_view', null, null);
+INSERT INTO `sys_permission` VALUES ('26', null, '系统权限添加', '25', null, 'syspermission_add', null, null);
+INSERT INTO `sys_permission` VALUES ('27', null, '系统权限删除', '25', null, 'syspermission_delete', null, null);
+INSERT INTO `sys_permission` VALUES ('28', null, '系统权限修改', '25', null, 'syspermission_update', null, null);
+INSERT INTO `sys_permission` VALUES ('32', null, '系统管理', null, null, 'sysmanage', null, null);
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -108,26 +109,27 @@ INSERT INTO `sys_role_permission` VALUES ('18', '1');
 INSERT INTO `sys_role_permission` VALUES ('30', '1');
 INSERT INTO `sys_role_permission` VALUES ('31', '1');
 INSERT INTO `sys_role_permission` VALUES ('27', '15');
+INSERT INTO `sys_role_permission` VALUES ('25', '15');
 INSERT INTO `sys_role_permission` VALUES ('21', '15');
-INSERT INTO `sys_role_permission` VALUES ('16', '15');
-INSERT INTO `sys_role_permission` VALUES ('14', '14');
-INSERT INTO `sys_role_permission` VALUES ('19', '14');
 INSERT INTO `sys_role_permission` VALUES ('25', '14');
+INSERT INTO `sys_role_permission` VALUES ('19', '14');
+INSERT INTO `sys_role_permission` VALUES ('14', '14');
 INSERT INTO `sys_role_permission` VALUES ('28', '16');
 INSERT INTO `sys_role_permission` VALUES ('22', '16');
 INSERT INTO `sys_role_permission` VALUES ('17', '16');
 INSERT INTO `sys_role_permission` VALUES ('26', '17');
 INSERT INTO `sys_role_permission` VALUES ('20', '17');
 INSERT INTO `sys_role_permission` VALUES ('15', '17');
-INSERT INTO `sys_role_permission` VALUES ('14', '15');
 INSERT INTO `sys_role_permission` VALUES ('19', '15');
-INSERT INTO `sys_role_permission` VALUES ('25', '15');
+INSERT INTO `sys_role_permission` VALUES ('16', '15');
+INSERT INTO `sys_role_permission` VALUES ('14', '15');
 INSERT INTO `sys_role_permission` VALUES ('14', '16');
 INSERT INTO `sys_role_permission` VALUES ('19', '16');
 INSERT INTO `sys_role_permission` VALUES ('25', '16');
 INSERT INTO `sys_role_permission` VALUES ('19', '17');
 INSERT INTO `sys_role_permission` VALUES ('14', '17');
 INSERT INTO `sys_role_permission` VALUES ('25', '17');
+INSERT INTO `sys_role_permission` VALUES ('32', '1');
 
 -- ----------------------------
 -- Table structure for sys_user

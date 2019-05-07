@@ -26,4 +26,7 @@ public interface SysRolePermissionService {
 
     int deleteAllByRoleId(String roleId);
 
+    List<SysPermission> getPermissionsTree();
+
+    int[] getSelectedPermissionsId(String roleId);
 }

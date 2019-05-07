@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,34 +35,33 @@ public class SysRolePermissionController {
     @RequiresPermissions("sysrole_setpermissions")
     public String toSetUser(String roleId, Model model) {
         SysRole sysRole = sysRoleService.findByid(Integer.parseInt(roleId));
-
-        List<SysPermission> notSelectedPermissions = sysRolePermissionService.getNotSelectedPermissions(roleId);
-        List<SysPermission> selectedPermissions = sysRolePermissionService.getSelectedPermissions(roleId);
+        List<SysPermission> permissionsTree = sysRolePermissionService.getPermissionsTree();
+        int[] selectedPermissionsId = sysRolePermissionService.getSelectedPermissionsId(roleId);
 
         model.addAttribute("sysRole", sysRole);
-        model.addAttribute("notSelectedPermissions", notSelectedPermissions);
-        model.addAttribute("selectedPermissions", selectedPermissions);
+        model.addAttribute("permissionsTree", permissionsTree);
+        model.addAttribute("selectedPermissionsId", selectedPermissionsId);
 
-        return "sys_role_permission/setpermission";
+        return "sys_role_permission/setpermission1";
     }
 
     @RequestMapping("/setPermission")
     @RequiresPermissions("sysrole_setpermissions")
-    public String setUser(String roleId, String[] allId, Model model) {
+    public String setUser(@RequestParam("roleId") String roleId, @RequestParam("permissions") String[] permissions, Model model) {
         List<String> msgs = new ArrayList<>();
         int msg1 = sysRolePermissionService.deleteAllByRoleId(roleId);
 
-        for (int i = 0; i < allId.length; i++) {
+        for (int i = 0; i < permissions.length; i++) {
             SysRolePermission sysRolePermission = new SysRolePermission();
 
             sysRolePermission.setRoleId(Integer.parseInt(roleId));
-            sysRolePermission.setPermissionId(Integer.parseInt(allId[i]));
+            sysRolePermission.setPermissionId(Integer.parseInt(permissions[i]));
             int msg = sysRolePermissionService.addRolePermission(sysRolePermission);
 
             if (msg > 0) {
-                msgs.add("成功授予角色id为：  " + allId[i] + " 的权限！");
+                msgs.add("成功授予角色id为：  " + permissions[i] + " 的权限！");
             } else {
-                msgs.add("授予角色id为： " + allId[i] + " 的权限失败");
+                msgs.add("授予角色id为： " + permissions[i] + " 的权限失败");
             }
         }
         model.addAttribute("msg", msgs);

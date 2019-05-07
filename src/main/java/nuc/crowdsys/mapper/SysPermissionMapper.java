@@ -24,5 +24,10 @@ public interface SysPermissionMapper {
     @Update("update sys_permission set available=#{sysPermission.available},name=#{sysPermission.name},parent_id=#{sysPermission.parentId},parent_ids=#{sysPermission.parentIds},permission=#{sysPermission.permission},resource_type=#{sysPermission.resourceType},url=#{sysPermission.url} where id=#{sysPermission.id}")
     int updateSysPermission(@Param("sysPermission") SysPermission sysPermission);
 
+    @Select("select * from sys_permission where parent_id is null")
+    List<SysPermission> getRootPermissions();
+
+    @Select("")
+    List<SysPermission> findPermissionsByParentId();
 
 }
