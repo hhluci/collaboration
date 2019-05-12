@@ -1,22 +1,63 @@
 package nuc.crowdsys.controller;
 
+import nuc.crowdsys.entity.SysPermission;
+import nuc.crowdsys.entity.SysUser;
+import nuc.crowdsys.service.HomeService;
+import nuc.crowdsys.utils.ResponseBo;
+import nuc.crowdsys.utils.Tree;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
 public class HomeController {
-    @RequestMapping({"/", "/index"})
-    public String index() {
-        return "/index";
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    private HomeService homeService;
+
+
+    @RequestMapping("menu/getUserMenu")
+    @ResponseBody
+    public ResponseBo getUserMenu(Integer userId) {
+        try {
+            Tree<SysPermission> tree = homeService.getUserMenu(userId);
+            return ResponseBo.ok(tree);
+        } catch (Exception e) {
+            logger.error("获取用户菜单失败", e);
+            return ResponseBo.error("获取用户菜单失败！");
+        }
     }
 
-    @RequestMapping("/login")
-    public String login(HttpServletRequest request, Map<String, Object> map) throws Exception {
+    @RequestMapping({"/", "/index"})
+    public String index(Model model) {
+        SysUser user = (SysUser) SecurityUtils.getSubject().getPrincipal();
+        model.addAttribute("user", user);
+        return "index";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @PostMapping("/login")
+    @ResponseBody
+    public Map<String, Object> login(HttpServletRequest request) throws Exception {
+
         String exception = (String) request.getAttribute("shiroLoginFailure");
         String msg = "";
         if (exception != null) {
@@ -30,8 +71,9 @@ public class HomeController {
                 msg = "else >> " + exception;
             }
         }
+        Map<String, Object> map = new HashMap<>();
         map.put("msg", msg);
-        return "/login";
+        return map;
     }
 
     @RequestMapping("/403")

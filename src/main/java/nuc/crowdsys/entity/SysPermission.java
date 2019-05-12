@@ -19,5 +19,5 @@ public class SysPermission implements Serializable {
     private String parentIds; //父编号列表
     private Boolean available = Boolean.FALSE;
     private List<SysPermission> childs;
-
+    private String icon;
 }
