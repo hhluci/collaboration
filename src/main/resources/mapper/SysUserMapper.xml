@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nuc.crowdsys.mapper.SysUserMapper">
+
+
+    <select id="findAllUsers" resultType="nuc.crowdsys.entity.SysUser" parameterType="nuc.crowdsys.entity.SysUser">
+        select u.uid,name,state,username from sys_user u
+        where 1=1
+        <if test="username != null and username != ''">
+            AND u.username = #{username}
+        </if>
+        <if test="uid != null and uid != ''">
+            AND u.uid = #{uid}
+        </if>
+
+        <if test="state != null and state != ''">
+            AND u.state = #{state}
+        </if>
+        order by u.uid
+    </select>
+
+    <select id="findByUsername" resultType="nuc.crowdsys.entity.SysUser" parameterType="string">
+		select * from sys_user where username = #{username}
+	</select>
+
+    <select id="findAllByUsername" resultType="nuc.crowdsys.entity.SysUser" parameterType="string">
+		select * from sys_user where username = #{username}
+	</select>
+
+
+    <insert id="addUser" parameterType="nuc.crowdsys.entity.SysUser" useGeneratedKeys="true" keyProperty="uid">
+	INSERT INTO sys_user ( password,name , salt, username,state) VALUES ( #{password}, #{name}, #{salt}, #{username},#{state} )
+    </insert>
+    <delete id="deleteByUid" parameterType="long">
+           delete from sys_user where uid=#{uid}
+
+    </delete>
+
+
+    <select id="findUserWithRole" resultType="nuc.crowdsys.entity.UserWithRole">
+		select u.uid ,u.name,u.username ,u.state,ur.role_id from sys_user u
+		left join sys_user_role ur on (u.uid = ur.uid)
+		where u.uid = #{userId}
+  </select>
+    <update id="updateSysUser" parameterType="nuc.crowdsys.entity.SysUser">
+update sys_user set name=#{name},password=#{password},salt=#{salt},state=#{state} where uid=#{uid}
+    </update>
+
+
+    <update id="updateSysUserNokey" parameterType="nuc.crowdsys.entity.SysUser">
+update sys_user set name=#{name},state=#{state} where uid=#{uid}
+    </update>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

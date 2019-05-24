@@ -14,14 +14,7 @@ import java.util.List;
  * @Date: Created in 18:08 2019-04-16
  */
 public interface SysRoleUserService {
-    int addUserRole(SysUserRole sysUserRole);
-
     List<SysUserRole> findUserRoleByRoleId(int roleId);
 
-    List<SysUser> getNotSelectedUsers(String roleId);
-
-    List<SysUser> getSelectedUsers(String roleId);
-
-    int deleteAllByRoleId(String uid);
 
 }

@@ -1,18 +1,25 @@
 package nuc.crowdsys.controller;
 
+import lombok.extern.java.Log;
 import nuc.crowdsys.entity.SysRole;
 import nuc.crowdsys.entity.SysUser;
 import nuc.crowdsys.service.SysRoleService;
+import nuc.crowdsys.utils.QueryRequest;
+import nuc.crowdsys.utils.ResponseBo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: jurui
@@ -22,114 +29,104 @@ import java.util.List;
  * @Date: Created in 14:26 2019-04-17
  */
 @Controller
-@RequestMapping("/sysRole")
-public class SysRoleController {
+@RequestMapping("/sysrole")
+public class SysRoleController extends BaseController {
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private SysRoleService sysRoleService;
 
-    @GetMapping("/findAllRoles")
+    @RequestMapping("/list")
     @RequiresPermissions("sysrole_view")
-    public String findAllRoles(Model model) {
-        List<SysRole> allRoles = sysRoleService.findAllSysRoles();
-        model.addAttribute("allRoles", allRoles);
-        System.out.println(model);
-        return "sysrole/rolemanage";
+    @ResponseBody
+    public Map<String, Object> roleList(QueryRequest request) {
+        return super.selectByPageNumSize(request, () -> this.sysRoleService.findAllRole());
     }
 
-    @GetMapping("/addRole")
-    @RequiresPermissions("sysrole_add")
-    public String addUser() {
-        return "sysrole/addrole";
+
+    @RequestMapping("/role")
+    @RequiresPermissions("sysrole_view")
+
+    public String index() {
+        return "sysrole/role";
     }
 
-    @PostMapping("/toAddRole")
+    @RequestMapping("/listbyrole")
+    @RequiresPermissions("sysrole_view")
+    @ResponseBody
+    public Map<String, Object> roleList(QueryRequest request, SysRole role) {
+
+        return super.selectByPageNumSize(request, () -> this.sysRoleService.findAllRoleByRole(role));
+
+
+    }
+
+
+    @RequestMapping("/add")
     @RequiresPermissions("sysrole_add")
-    public String toAddUser(String available, String description, String role, Model model) {
+    @ResponseBody
+    public ResponseBo addRole(SysRole role, Long[] menuId) {
+        try {
+            if ("on".equalsIgnoreCase(role.getState())) {
+                role.setState("1");
+            } else {
+                role.setState("0");
+            }
 
-        SysRole sysRole = new SysRole();
-        if (Integer.parseInt(available) == 0) {
-            sysRole.setAvailable(false);
-        } else if (Integer.parseInt(available) == 1) {
-            sysRole.setAvailable(true);
-        } else {
-            model.addAttribute("msg", "添加失败！available取值错误");
-            return "sysrole/addrole";
+            this.sysRoleService.addRole(role, menuId);
+            return ResponseBo.ok("新增角色成功！");
+        } catch (Exception e) {
+            log.error("新增角色失败", e);
+            return ResponseBo.error("新增角色失败，请联系网站管理员！");
         }
-        sysRole.setDescription(description);
-        sysRole.setRole(role);
-        int msg = sysRoleService.addRole(sysRole);
-        if (msg > 0) {
-            model.addAttribute("msg", "操作成功！");
-
-        } else {
-            model.addAttribute("msg", "操作失败！");
-        }
-        return "sysrole/addrole";
     }
 
 
     @RequestMapping("/delete")
     @RequiresPermissions("sysrole_delete")
-    public String deleteByUid(String id, Model model) {
-        int msg = sysRoleService.deleteByid(Integer.parseInt(id));
-        if (msg > 0) {
-            model.addAttribute("msg", "操作成功！");
-        } else {
-            model.addAttribute("msg", "操作失败！");
+    @ResponseBody
+    public ResponseBo deleteRoles(String ids) {
+        System.out.println(ids);
+        try {
+            this.sysRoleService.deleteRoles(ids);
+            return ResponseBo.ok("删除角色成功！");
+        } catch (Exception e) {
+            log.error("删除角色失败", e);
+            return ResponseBo.error("删除角色失败，请联系网站管理员！");
         }
-        return "sysrole/rolestate";
     }
 
 
-    @RequestMapping("/toUpdate")
-    @RequiresPermissions("sysrole_update")
-    public String updateByUid(String id, Model model) {
-        SysRole sysRole = sysRoleService.findByid(Integer.parseInt(id));
-        model.addAttribute("sysRole", sysRole);
-
-        return "sysrole/updaterole";
+    @RequestMapping("/getRole")
+    @RequiresPermissions("sysrole_view")
+    @ResponseBody
+    public ResponseBo getRole(Long roleId) {
+        try {
+            SysRole role = sysRoleService.findRoleWithMenus(roleId);
+            return ResponseBo.ok(role);
+        } catch (Exception e) {
+            log.error("获取角色信息失败", e);
+            return ResponseBo.error("获取角色信息失败，请联系网站管理员！");
+        }
     }
+
 
     @RequestMapping("/update")
-    @RequiresPermissions("sysrole_update")
-    public String update(String id, String role, String description, String available, Model model) {
-        SysRole sysRole = new SysRole();
-        sysRole.setRole(role);
-        sysRole.setDescription(description);
-        if (Integer.parseInt(available) == 0) {
-            sysRole.setAvailable(false);
-        } else if (Integer.parseInt(available) == 1) {
-            sysRole.setAvailable(true);
-        }
-        sysRole.setId(Integer.parseInt(id));
-        int msg = sysRoleService.updateSysRole(sysRole);
-        if (msg > 0) {
-            model.addAttribute("msg", "操作成功！");
-        } else {
-            model.addAttribute("msg", "操作失败！");
-        }
-        return "sysrole/rolestate";
-    }
-
-
-    //批量删除
-    @RequestMapping("/batchdelete")
-    @RequiresPermissions("sysrole_delete")
-    public String batchDelete(String tag, Model model) {
-        String[] strs = tag.split(",");
-        List<String> msgs = new ArrayList<>();
-        for (int i = 0; i < strs.length; i++) {
-            try {
-                int msg = sysRoleService.deleteByid(Integer.parseInt(strs[i]));
-                if (msg > 0) {
-                    msgs.add("id为： " + strs[i] + " 删除成功！");
-                } else {
-                    msgs.add("id为： " + strs[i] + " 删除失败！");
-                }
-            } catch (Exception e) {
+    @RequiresPermissions({"sysrole_update", "sysrole_setpermissions"})
+    @ResponseBody
+    public ResponseBo updateRole(SysRole role, Long[] menuId) {
+        try {
+            if ("on".equalsIgnoreCase(role.getState())) {
+                role.setState("1");
+            } else {
+                role.setState("0");
             }
+            sysRoleService.updateRole(role, menuId);
+            return ResponseBo.ok("修改角色成功！");
+        } catch (Exception e) {
+            log.error("修改角色失败", e);
+            return ResponseBo.error("修改角色失败，请联系网站管理员！");
         }
-        model.addAttribute("msg", msgs);
-        return "sysrole/rolestate";
     }
+
 }

@@ -13,15 +13,14 @@ import java.util.List;
  * @Date: Created in 18:08 2019-04-16
  */
 public interface SysUserRoleService {
-    int addUserRole(SysUserRole sysUserRole);
-
-    List<SysUserRole> findUserRoleById(int uid);
 
 
-    List<SysRole> getNotSelectedRoles(String uid);
+    List<SysUserRole> findUserRoleById(long uid);
 
-    List<SysRole> getSelectedRoles(String uid);
 
-    int deleteAllByUid(String uid);
+    List<SysRole> getSelectedRoles(long uid);
+
+
+    void deleteUserRolesByUserId(String userIds);
 
 }

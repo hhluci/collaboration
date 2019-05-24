@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nuc.crowdsys.mapper.SysUserRoleMapper">
+
+
+    <insert id="addUserRole" parameterType="nuc.crowdsys.entity.SysUserRole">
+INSERT INTO sys_user_role (uid,role_id) VALUES ( #{uid}, #{roleId})
+
+</insert>
+
+    <select id="findUserRoleById" parameterType="long" resultType="nuc.crowdsys.entity.SysUserRole">
+       select * from sys_user_role where uid= #{uid}
+
+    </select>
+
+    <delete id="deleteAllByUid" parameterType="long">
+        delete from sys_user_role where uid=#{uid}
+    </delete>
+
+    <delete id="deleteUserRoleByRoleId" parameterType="long">
+        delete from sys_user_role where role_id=#{id}
+    </delete>
+
+</mapper>

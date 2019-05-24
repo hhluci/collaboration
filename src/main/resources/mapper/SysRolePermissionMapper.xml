@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nuc.crowdsys.mapper.SysRolePermissionMapper">
+
+
+    <select id="findRolePermissionByRoleId" parameterType="long" resultType="nuc.crowdsys.entity.SysRolePermission">
+
+    select * from sys_role_permission where role_id= #{roleId}
+
+</select>
+
+    <insert id="addRolePermission" parameterType="nuc.crowdsys.entity.SysRolePermission">
+
+    INSERT INTO sys_role_permission (permission_id,role_id) VALUES ( #{permissionId}, #{roleId})
+
+    </insert>
+
+    <delete id="deleteRolePermissionByRoleId" parameterType="long">
+        delete from sys_role_permission where role_id=#{id}
+    </delete>
+
+    <delete id="deleteRolePermisssionsByPId" parameterType="long">
+        delete from sys_role_permission where permission_id=#{id}
+    </delete>
+
+</mapper>

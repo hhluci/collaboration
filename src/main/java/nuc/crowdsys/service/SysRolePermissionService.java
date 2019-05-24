@@ -15,18 +15,11 @@ import java.util.List;
  * @Date: Created in 18:08 2019-04-16
  */
 public interface SysRolePermissionService {
-    int addRolePermission(SysRolePermission sysRolePermission);
 
 
-    List<SysRolePermission> findRolePermissionByRoleId(int roleId);
+    List<SysRolePermission> findRolePermissionByRoleId(long roleId);
 
-    List<SysPermission> getNotSelectedPermissions(String roleId);
 
-    List<SysPermission> getSelectedPermissions(String roleId);
+    List<SysPermission> getSelectedPermissions(long roleId);
 
-    int deleteAllByRoleId(String roleId);
-
-    List<SysPermission> getPermissionsTree();
-
-    int[] getSelectedPermissionsId(String roleId);
 }

@@ -3,6 +3,7 @@ package nuc.crowdsys.service;
 
 import nuc.crowdsys.entity.SysPermission;
 import nuc.crowdsys.entity.SysRole;
+import nuc.crowdsys.utils.Tree;
 
 import java.util.List;
 
@@ -14,13 +15,20 @@ import java.util.List;
  * @Date: Created in 14:33 2019-04-17
  */
 public interface SysPermissionService {
-    List<SysPermission> findAllSysPermissions();
+    List<SysPermission> findAllMenus(SysPermission menu);
 
-    int addPermission(SysPermission sysPermission);
 
-    int deleteByid(int id);
+    Tree<SysPermission> getMenuTree();
 
-    SysPermission findByid(int id);
+    SysPermission findByNameAndType(String name, String type);
 
-    int updateSysPermission(SysPermission sysPermission);
+    void addMenu(SysPermission menu);
+
+    void deleteMeuns(String menuIds);
+
+    SysPermission findById(Long menuId);
+
+    void updateMenu(SysPermission menu);
+
+
 }

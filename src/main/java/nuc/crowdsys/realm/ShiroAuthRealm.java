@@ -31,9 +31,9 @@ public class ShiroAuthRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         SysUser user = (SysUser) principals.getPrimaryPrincipal();
 
-        for (SysRole role : sysUserRoleService.getSelectedRoles(String.valueOf(user.getUid()))) {
+        for (SysRole role : sysUserRoleService.getSelectedRoles(user.getUid())) {
             authorizationInfo.addRole(role.getRole());
-            for (SysPermission p : sysRolePermissionService.getSelectedPermissions(String.valueOf(role.getId()))) {
+            for (SysPermission p : sysRolePermissionService.getSelectedPermissions(role.getId())) {
                 authorizationInfo.addStringPermission(p.getPermission());
             }
         }

@@ -1,6 +1,7 @@
 package nuc.crowdsys.service;
 
 import nuc.crowdsys.entity.SysUser;
+import nuc.crowdsys.entity.UserWithRole;
 
 import java.util.List;
 
@@ -14,13 +15,23 @@ import java.util.List;
 public interface SysUserService {
     SysUser findByUsername(String username);
 
-    List<SysUser> findAllUsers();
+    List<SysUser> findAllUsers(SysUser sysUser);
 
-    int addUser(SysUser sysUser);
+    void addUser(SysUser user, Long[] roles);
 
-    int deleteByUid(int uid);
+    void addUser(SysUser user);
 
-    SysUser findByUid(int uid);
+    void setUserRoles(SysUser user, Long[] roles);
 
-    int updateSysUser(SysUser sysUser);
+    void deleteUsers(String userIds);
+
+    SysUser findByName(String userName);
+
+    UserWithRole findById(Long userId);
+
+
+    void updateUser(SysUser user, Long[] roles);
+
+    void updateUser(SysUser user);
+
 }

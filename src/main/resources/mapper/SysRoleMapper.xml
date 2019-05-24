@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nuc.crowdsys.mapper.SysRoleMapper">
+
+    <select id="findAllSysRoles" resultType="nuc.crowdsys.entity.SysRole">
+	  select * from sys_role
+  </select>
+
+    <select id="findAllRoleByRole" resultType="nuc.crowdsys.entity.SysRole" parameterType="nuc.crowdsys.entity.SysRole">
+        select * from sys_role r
+        where 1=1
+        <if test="id != null and id != ''">
+            AND r.id = #{id}
+        </if>
+        <if test="role != null and role != ''">
+            AND r.role = #{role}
+        </if>
+
+        <if test="description != null and description != ''">
+            AND r.description = #{description}
+        </if>
+        <if test="state != null and state != ''">
+            AND r.state = #{state}
+        </if>
+        order by r.id
+    </select>
+    <insert id="addRole" parameterType="nuc.crowdsys.entity.SysRole" useGeneratedKeys="true" keyProperty="id">
+        	INSERT INTO sys_role ( role,description,state) VALUES ( #{role}, #{description}, #{state} )
+
+    </insert>
+
+    <delete id="deleteById" parameterType="long">
+           delete from sys_role where id=#{id}
+
+    </delete>
+
+
+    <select id="findById" resultType="nuc.crowdsys.entity.RoleWithMenu">
+  	select r.id,r.state,r.description,r.role,
+  	rm.permission_id  from sys_role r
+	left join sys_role_permission rm on(r.id = rm.role_id)
+	where r.id = #{roleId}
+  </select>
+
+    <update id="updateRole" parameterType="nuc.crowdsys.entity.SysRole">
+   update sys_role set description=#{description},role=#{role},state=#{state} where id=#{id}
+
+</update>
+</mapper>

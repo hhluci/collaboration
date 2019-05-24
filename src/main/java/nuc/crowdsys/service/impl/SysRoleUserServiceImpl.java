@@ -29,56 +29,60 @@ public class SysRoleUserServiceImpl implements SysRoleUserService {
     @Autowired
     private SysUserMapper sysUserMapper;
 
-
-    @Override
-    public int addUserRole(SysUserRole sysUserRole) {
-        return sysRoleUserMapper.addUserRole(sysUserRole);
-    }
-
     @Override
     public List<SysUserRole> findUserRoleByRoleId(int roleId) {
         return sysRoleUserMapper.findUserRoleByRoleId(roleId);
     }
 
-    @Override
-    public List<SysUser> getNotSelectedUsers(String roleId) {
-        List<SysUser> allUsers = sysUserMapper.findAllUsers();
-        List<SysUserRole> sysUserRoles = findUserRoleByRoleId(Integer.parseInt(roleId));
-        System.out.println(sysUserRoles);
-        List<SysUser> notSelectedUsers = new ArrayList<SysUser>();
-        for (int j = 0; j < allUsers.size(); j++) {
-            boolean flag = false;
-            for (int i = 0; i < sysUserRoles.size(); i++) {
-                if (sysUserRoles.get(i).getUid().equals(allUsers.get(j).getUid())) {
-                    flag = true;
-                }
-
-            }
-            if (!flag) {
-                notSelectedUsers.add(allUsers.get(j));
-            }
-        }
-        return notSelectedUsers;
-    }
-
-    @Override
-    public List<SysUser> getSelectedUsers(String roleId) {
-        List<SysUser> allUsers = sysUserMapper.findAllUsers();
-        List<SysUserRole> sysUserRoles = findUserRoleByRoleId(Integer.parseInt(roleId));
-
-        List<SysUser> selectedUsers = new ArrayList<SysUser>();
-        for (int j = 0; j < allUsers.size(); j++) {
-            for (int i = 0; i < sysUserRoles.size(); i++) {
-                if (sysUserRoles.get(i).getUid().equals(allUsers.get(j).getUid())) {
-                    selectedUsers.add(allUsers.get(j));
-                }
-            }
-        }
-        return selectedUsers;
-    }
-
-    @Override
-    public int deleteAllByRoleId(String roleId) {
-        return sysRoleUserMapper.deleteAllByRoleId(Integer.parseInt(roleId));
-    }
+    //@Override
+    //public int addUserRole(SysUserRole sysUserRole) {
+    //    return sysRoleUserMapper.addUserRole(sysUserRole);
+    //}
+    //
+    //
+    //@Override
+    //public List<SysUser> getNotSelectedUsers(String roleId) {
+    //    SysUser sysUser=new SysUser();
+    //    List<SysUser> allUsers = sysUserMapper.findAllUsers(sysUser);
+    //    List<SysUserRole> sysUserRoles = findUserRoleByRoleId(Integer.parseInt(roleId));
+    //    System.out.println(sysUserRoles);
+    //    List<SysUser> notSelectedUsers = new ArrayList<SysUser>();
+    //    for (int j = 0; j < allUsers.size(); j++) {
+    //        boolean flag = false;
+    //        for (int i = 0; i < sysUserRoles.size(); i++) {
+    //            if (sysUserRoles.get(i).getUid().equals(allUsers.get(j).getUid())) {
+    //                flag = true;
+    //            }
+    //
+    //        }
+    //        if (!flag) {
+    //            notSelectedUsers.add(allUsers.get(j));
+    //        }
+    //    }
+    //    return notSelectedUsers;
+    //}
+    //
+    //@Override
+    //public List<SysUser> getSelectedUsers(String roleId) {
+    //
+    //    SysUser sysUser=new SysUser();
+    //
+    //    List<SysUser> allUsers = sysUserMapper.findAllUsers(sysUser);
+    //    List<SysUserRole> sysUserRoles = findUserRoleByRoleId(Integer.parseInt(roleId));
+    //
+    //    List<SysUser> selectedUsers = new ArrayList<SysUser>();
+    //    for (int j = 0; j < allUsers.size(); j++) {
+    //        for (int i = 0; i < sysUserRoles.size(); i++) {
+    //            if (sysUserRoles.get(i).getUid().equals(allUsers.get(j).getUid())) {
+    //                selectedUsers.add(allUsers.get(j));
+    //            }
+    //        }
+    //    }
+    //    return selectedUsers;
+    //}
+    //
+    //@Override
+    //public int deleteAllByRoleId(String roleId) {
+    //    return sysRoleUserMapper.deleteAllByRoleId(Integer.parseInt(roleId));
+    //}
 }

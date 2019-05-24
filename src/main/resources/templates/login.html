@@ -50,6 +50,10 @@
                 <input type="text" name="username"/>
             </div>
             <div class="form-group">
+                <label>昵称</label>
+                <input type="text" name="name"/>
+            </div>
+            <div class="form-group">
                 <label>密码</label>
                 <input type="password" name="password"/>
             </div>
@@ -66,7 +70,10 @@
 <div data-th-include="common/footer"></div>
 </body>
 <script th:inline="javascript">
+    var ctx = [[@{/}]];
 
 </script>
+
+
 <script data-th-src="@{js/collaboration/login.js}"></script>
 </html>

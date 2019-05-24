@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nuc.crowdsys.mapper.SysPermissionMapper">
+
+    <select id="findAllSysPermissions" resultType="nuc.crowdsys.entity.SysPermission">
+    select * from sys_permission
+</select>
+
+
+    <select id="findAllMenus" resultType="nuc.crowdsys.entity.SysPermission"
+            parameterType="nuc.crowdsys.entity.SysPermission">
+        select * from sys_permission p
+        where 1=1
+        <if test="name != null and name != ''">
+            AND p.name = #{name}
+        </if>
+        <if test="type != null and type != ''">
+            AND p.type = #{type}
+        </if>
+
+        <if test="state != null and state != ''">
+            AND p.state = #{state}
+        </if>
+        order by p.id
+    </select>
+
+    <insert id="addPermission" parameterType="nuc.crowdsys.entity.SysPermission">
+
+INSERT INTO sys_permission ( state,name,parent_id,parent_ids,permission,type,url,icon)
+ VALUES ( #{state}, #{name}, #{parentId} , #{parentIds}, #{permission}, #{type}, #{url}, #{icon})
+
+    </insert>
+
+    <delete id="deleteById" parameterType="long">
+        delete from sys_permission where id=#{id}
+    </delete>
+
+    <update id="changeToTop" parameterType="java.util.List">
+        update sys_permission set parent_id = 0 where id in ( select a.id from (
+        (select id from sys_permission where parent_id in
+        <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        ) ) a )
+    </update>
+
+    <select id="findById" parameterType="long" resultType="nuc.crowdsys.entity.SysPermission">
+        select * from sys_permission where id=#{menuId}
+    </select>
+
+    <update id="updatePermission" parameterType="nuc.crowdsys.entity.SysPermission">
+
+update sys_permission set state=#{state},name=#{name},parent_id=#{parentId},
+parent_ids=#{parentIds},permission=#{permission},type=#{type},url=#{url},icon= #{icon}
+where id=#{id}
+    </update>
+</mapper>

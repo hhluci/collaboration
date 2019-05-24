@@ -84,6 +84,7 @@ function regist() {
     var username = $(".two input[name='username']").val().trim();
     var password = $(".two input[name='password']").val().trim();
     var cpassword = $(".two input[name='cpassword']").val().trim();
+    var name = $(".two input[name='name']").val().trim();
     if (username === "") {
         $MB.n_warning("账号不能为空！");
         return;
@@ -94,6 +95,17 @@ function regist() {
         $MB.n_warning("账号长度不能少于3个字符！");
         return;
     }
+    if (name === "") {
+        $MB.n_warning("昵称不能为空！");
+        return;
+    } else if (name.length > 10) {
+        $MB.n_warning("昵称长度不能超过10个字符！");
+        return;
+    } else if (name.length < 2) {
+        $MB.n_warning("昵称长度不能少于2个字符！");
+        return;
+    }
+
     if (password === "") {
         $MB.n_warning("密码不能为空！");
         return;
@@ -108,10 +120,12 @@ function regist() {
     }
     $.ajax({
         type: "post",
-        url: ctx + "user/regist",
+        url: ctx + "sysuser/regist",
         data: {
             "username": username,
-            "password": password
+            "password": password,
+            "name": name,
+            "state": "0"
         },
         dataType: "json",
         success: function (r) {
@@ -120,6 +134,7 @@ function regist() {
                 $(".two input[name='username']").val("");
                 $(".two input[name='password']").val("");
                 $(".two input[name='cpassword']").val("");
+                $(".two input[name='name']").val("");
                 $('.form-toggle').trigger('click');
             } else {
                 $MB.n_warning(r.msg);

@@ -6,6 +6,6 @@ import lombok.ToString;
 @Data
 @ToString
 public class SysRolePermission {
-    private Integer permissionId;
-    private Integer roleId;
+    private Long permissionId;
+    private Long roleId;
 }

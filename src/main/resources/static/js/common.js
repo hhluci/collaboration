@@ -223,6 +223,7 @@ var $MB = (function () {
 
     // 重新加载数据，重绘jsTree
     function _refreshJsTree(id, fn) {
+
         $('#' + id).data('jstree', false).empty();
         fn;
     }

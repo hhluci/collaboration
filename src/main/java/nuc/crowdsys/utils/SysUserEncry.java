@@ -31,4 +31,13 @@ public class SysUserEncry {
         sysUser.setPassword(newPassword);
         return sysUser;
     }
+
+
+    public static boolean checkUserPassword(SysUser sysUser, String password) {
+        String newPassword =
+                new SimpleHash(algorithmName, password,
+                        ByteSource.Util.bytes(sysUser.getCredentialsSalt()), hashIterations).toHex();
+
+        return sysUser.getPassword().equals(newPassword);
+    }
 }

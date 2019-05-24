@@ -6,7 +6,7 @@ import lombok.ToString;
 @Data
 @ToString
 public class SysUserRole {
-    private Integer uid;
-    private Integer roleId;
+    private Long uid;
+    private Long roleId;
 
 }
