@@ -90,6 +90,16 @@ function validateRule() {
             },
             roles: {
                 required: true
+            },
+            name: {
+                required: true,
+                minlength: 3,
+                maxlength: 10,
+            },
+            password: {
+                required: true,
+                minlength: 6,
+                maxlength: 10,
             }
         },
         errorPlacement: function (error, element) {
@@ -105,7 +115,15 @@ function validateRule() {
                 minlength: icon + "用户名长度3到10个字符",
                 remote: icon + "用户名已经存在"
             },
-            roles: icon + "请选择用户角色"
+            roles: icon + "请选择用户角色",
+            name: {
+                required: icon + "请输入昵称",
+                minlength: icon + "昵称长度3到10个字符",
+            },
+            password: {
+                required: icon + "请输入密码",
+                minlength: icon + "昵称长度6到10个字符",
+            },
         }
     });
 

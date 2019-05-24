@@ -109,7 +109,7 @@ function validateRule() {
     var icon = "<i class='zmdi zmdi-close-circle zmdi-hc-fw'></i> ";
     validator = $menuAddForm.validate({
         rules: {
-            menuName: {
+            name: {
                 required: true,
                 minlength: 2,
                 maxlength: 10,
@@ -132,7 +132,7 @@ function validateRule() {
             }
         },
         messages: {
-            menuName: {
+            name: {
                 required: icon + "请输入名称",
                 minlength: icon + "名称长度2到10个字符",
                 remote: icon + "该名称已经存在"

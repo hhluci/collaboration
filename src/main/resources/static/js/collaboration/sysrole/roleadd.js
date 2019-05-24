@@ -59,7 +59,7 @@ function validateRule() {
     var icon = "<i class='zmdi zmdi-close-circle zmdi-hc-fw'></i> ";
     validator = $roleAddForm.validate({
         rules: {
-            roleName: {
+            role: {
                 required: true,
                 minlength: 3,
                 maxlength: 10,
@@ -77,7 +77,7 @@ function validateRule() {
                     }
                 }
             },
-            remark: {
+            description: {
                 maxlength: 50
             },
             menuId: {
@@ -85,12 +85,12 @@ function validateRule() {
             }
         },
         messages: {
-            roleName: {
+            role: {
                 required: icon + "请输入角色名称",
                 minlength: icon + "角色名称长度3到10个字符",
                 remote: icon + "该角色名已经存在"
             },
-            remark: icon + "角色描述不能超过50个字符",
+            description: icon + "角色描述不能超过50个字符",
             menuId: icon + "请选择相应菜单权限"
         }
     });
