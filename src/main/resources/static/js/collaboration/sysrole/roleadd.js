@@ -79,9 +79,6 @@ function validateRule() {
             },
             description: {
                 maxlength: 50
-            },
-            menuId: {
-                required: true
             }
         },
         messages: {
@@ -91,7 +88,7 @@ function validateRule() {
                 remote: icon + "该角色名已经存在"
             },
             description: icon + "角色描述不能超过50个字符",
-            menuId: icon + "请选择相应菜单权限"
+
         }
     });
 }
