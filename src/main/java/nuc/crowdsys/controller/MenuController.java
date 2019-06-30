@@ -1,5 +1,6 @@
 package nuc.crowdsys.controller;
 
+import nuc.crowdsys.annotation.SystemLog;
 import nuc.crowdsys.entity.SysPermission;
 import nuc.crowdsys.service.MenuService;
 import nuc.crowdsys.utils.ResponseBo;
@@ -21,6 +22,7 @@ public class MenuController extends BaseController {
 
     @RequestMapping("menu/getUserMenu")
     @ResponseBody
+    @SystemLog(module = "系统菜单模块", methods = "获取菜单")
     public ResponseBo getUserMenu(Integer userId) {
         try {
             Tree<SysPermission> tree = menuService.getUserMenu(userId);

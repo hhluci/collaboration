@@ -112,19 +112,12 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void updateUser(SysUser user, Long[] roles) {
         //更新用户信息
-        System.out.println(user);
         if (user.getPassword() == null || user.getPassword().equals("")) {
-            System.out.println("设置密码为默认密码");
             user.setPassword("123456");
         }
-        System.out.println(user.getPassword());
-        System.out.println("不修改仍为原密码！");
-        System.out.println(user.getPassword().equals("不修改仍为原密码！"));
         if (user.getPassword().equals("不修改仍为原密码！")) {
-            System.out.println("不修改密码");
             userMapper.updateSysUserNokey(user);
         } else {
-            System.out.println("修改密码");
             user = encry(user);
             userMapper.updateSysUser(user);
 

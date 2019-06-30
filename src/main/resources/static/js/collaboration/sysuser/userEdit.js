@@ -10,6 +10,7 @@ function updateUser() {
         return;
     }
     var userId = selected[0].uid;
+
     $.post(ctx + "sysuser/getUser", {"userId": userId}, function (r) {
         if (r.code === 0) {
             var $form = $('#user-add');

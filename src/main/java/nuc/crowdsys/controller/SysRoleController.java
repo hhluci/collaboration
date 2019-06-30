@@ -1,8 +1,7 @@
 package nuc.crowdsys.controller;
 
-import lombok.extern.java.Log;
+import nuc.crowdsys.annotation.SystemLog;
 import nuc.crowdsys.entity.SysRole;
-import nuc.crowdsys.entity.SysUser;
 import nuc.crowdsys.service.SysRoleService;
 import nuc.crowdsys.utils.QueryRequest;
 import nuc.crowdsys.utils.ResponseBo;
@@ -11,14 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,6 +33,7 @@ public class SysRoleController extends BaseController {
     @RequestMapping("/list")
     @RequiresPermissions("sysrole_view")
     @ResponseBody
+    @SystemLog(module = "系统角色管理", methods = "查询所有角色")
     public Map<String, Object> roleList(QueryRequest request) {
         return super.selectByPageNumSize(request, () -> this.sysRoleService.findAllRole());
     }
@@ -65,6 +60,7 @@ public class SysRoleController extends BaseController {
     @RequestMapping("/add")
     @RequiresPermissions("sysrole_add")
     @ResponseBody
+    @SystemLog(module = "系统角色管理", methods = "添加角色")
     public ResponseBo addRole(SysRole role, Long[] menuId) {
         try {
             if ("on".equalsIgnoreCase(role.getState())) {
@@ -85,8 +81,8 @@ public class SysRoleController extends BaseController {
     @RequestMapping("/delete")
     @RequiresPermissions("sysrole_delete")
     @ResponseBody
+    @SystemLog(module = "系统角色管理", methods = "删除角色")
     public ResponseBo deleteRoles(String ids) {
-        System.out.println(ids);
         try {
             this.sysRoleService.deleteRoles(ids);
             return ResponseBo.ok("删除角色成功！");
@@ -114,6 +110,7 @@ public class SysRoleController extends BaseController {
     @RequestMapping("/update")
     @RequiresPermissions({"sysrole_update", "sysrole_setpermissions"})
     @ResponseBody
+    @SystemLog(module = "系统角色管理", methods = "修改角色")
     public ResponseBo updateRole(SysRole role, Long[] menuId) {
         try {
             if ("on".equalsIgnoreCase(role.getState())) {

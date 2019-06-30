@@ -1,4 +1,4 @@
-<div class="card" xmlns:shiro="http://www.w3.org/1999/xhtml">
+<div class="card" t xmlns:shiro="htp://www.w3.org/1999/xhtml">
     <div data-th-include="sysuser/userAdd"></div>
     <div class="card-block">
         <div class="table-responsive">
@@ -20,8 +20,10 @@
                         <div class="dropdown-menu dropdown-menu-right">
                             <a href="javascript:void(0)" class="dropdown-item" data-toggle="modal"
                                data-target="#user-add" shiro:hasPermission="sysuser_add">新增用户</a>
+
                             <a href="javascript:void(0)" class="dropdown-item" onclick="updateUser()"
                                shiro:hasPermission="sysuser_update">修改用户</a>
+
                             <a href="javascript:void(0)" class="dropdown-item" onclick="deleteUsers()"
                                shiro:hasPermission="sysuser_delete">删除用户</a>
                         </div>

@@ -2,6 +2,7 @@ package nuc.crowdsys.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import nuc.crowdsys.annotation.SystemLog;
 import nuc.crowdsys.entity.SysUser;
 import nuc.crowdsys.service.SysUserService;
 import nuc.crowdsys.utils.QueryRequest;
@@ -57,7 +58,6 @@ public class SysUserController {
                 return ResponseBo.warn("该账号已被使用！");
             }
 
-            System.out.println(user);
             user = SysUserEncry.encry(user);
 
             sysUserService.addUser(user);
@@ -70,7 +70,6 @@ public class SysUserController {
     }
 
     @RequestMapping("/user")
-    @RequiresPermissions("sysuser_view")
     public String index() {
         return "sysuser/user";
     }
@@ -79,6 +78,7 @@ public class SysUserController {
     @RequestMapping("/list")
     @RequiresPermissions("sysuser_view")
     @ResponseBody
+    @SystemLog(module = "系统用户管理", methods = "查询所有用户")
     public Map<String, Object> userList(QueryRequest request, SysUser sysUser) {
         PageHelper.startPage(request.getPageNum(), request.getPageSize());
         PageInfo<SysUser> pageInfo = new PageInfo<>(sysUserService.findAllUsers(sysUser));
@@ -95,6 +95,7 @@ public class SysUserController {
     @RequestMapping("/add")
     @RequiresPermissions("sysuser_add")
     @ResponseBody
+    @SystemLog(module = "系统用户管理", methods = "添加用户")
     public ResponseBo addUser(SysUser user, Long[] roles) {
         try {
             if ("on".equalsIgnoreCase(user.getState())) {
@@ -115,6 +116,7 @@ public class SysUserController {
     @RequestMapping("delete")
     @RequiresPermissions("sysuser_delete")
     @ResponseBody
+    @SystemLog(module = "系统用户管理", methods = "删除用户")
     public ResponseBo deleteUsers(String ids) {
         try {
             sysUserService.deleteUsers(ids);
@@ -142,6 +144,7 @@ public class SysUserController {
     @RequiresPermissions("sysuser_update")
     @RequestMapping("update")
     @ResponseBody
+    @SystemLog(module = "系统用户管理", methods = "修改用户")
     public ResponseBo updateUser(SysUser user, Long[] rolesSelect) {
         try {
             if ("on".equalsIgnoreCase(user.getState())) {
@@ -168,6 +171,7 @@ public class SysUserController {
 
     @RequestMapping("/updatePassword")
     @ResponseBody
+    @SystemLog(module = "系统用户管理", methods = "当前用户修改密码")
     public ResponseBo updatePassword(String newPassword) {
         try {
             SysUser user = (SysUser) SecurityUtils.getSubject().getPrincipal();
@@ -181,9 +185,4 @@ public class SysUserController {
             return ResponseBo.error("更改密码失败，请联系网站管理员！");
         }
     }
-
-
-
-
-
 }

@@ -1,5 +1,6 @@
 package nuc.crowdsys.controller;
 
+import nuc.crowdsys.annotation.SystemLog;
 import nuc.crowdsys.entity.SysPermission;
 import nuc.crowdsys.entity.SysRole;
 import nuc.crowdsys.service.SysPermissionService;
@@ -48,6 +49,7 @@ public class SysPermissionController {
     @RequestMapping("/list")
     @RequiresPermissions("syspermission_view")
     @ResponseBody
+    @SystemLog(module = "系统权限管理", methods = "查询所有权限")
     public List<SysPermission> menuList(SysPermission menu) {
         try {
             return this.sysPermissionService.findAllMenus(menu);
@@ -84,6 +86,7 @@ public class SysPermissionController {
     @RequestMapping("/add")
     @RequiresPermissions("syspermission_add")
     @ResponseBody
+    @SystemLog(module = "系统权限管理", methods = "添加权限")
     public ResponseBo addMenu(SysPermission menu) {
         String name;
         if ("0".equals(menu.getType())) {
@@ -110,6 +113,7 @@ public class SysPermissionController {
     @RequestMapping("/delete")
     @RequiresPermissions("syspermission_delete")
     @ResponseBody
+    @SystemLog(module = "系统权限管理", methods = "删除权限")
     public ResponseBo deleteMenus(String ids) {
         try {
             this.sysPermissionService.deleteMeuns(ids);
@@ -138,6 +142,7 @@ public class SysPermissionController {
     @RequestMapping("/update")
     @RequiresPermissions("syspermission_update")
     @ResponseBody
+    @SystemLog(module = "系统权限管理", methods = "修改权限")
     public ResponseBo updateMenu(SysPermission menu) {
         String name;
         if ("0".equals(menu.getType())) {
