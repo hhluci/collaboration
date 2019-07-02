@@ -55,7 +55,7 @@ public class SessionController {
                 session.stop();
             } else {
                 Session session = sessionDAO.readSession(sessionId);
-                session.stop();
+                sessionDAO.delete(session);
             }
 
             if (StringUtils.equals(sessionId, currentSessionId)) {

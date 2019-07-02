@@ -3,9 +3,6 @@ package nuc.crowdsys.entity;
 import lombok.Data;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 /**
  * @Author: jurui
