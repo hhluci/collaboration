@@ -9,13 +9,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-
     <groupId>nuc</groupId>
     <artifactId>collaboration</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>collaboration</name>
     <description>human machine cooperation platform</description>
-
 
     <properties>
         <java.version>1.8</java.version>
@@ -76,6 +74,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.38</version>
             <scope>runtime</scope>
         </dependency>
         <!--自动生成实体Bean中大量的Getter/Setter方法，以及toString, hashCode -->
@@ -149,6 +148,12 @@
             <version>2.1</version>
         </dependency>
         <!--activiti工作流-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.activiti</groupId>-->
+        <!--            <artifactId>activiti-spring</artifactId>-->
+        <!--            <version>6.0.0</version>-->
+        <!--        </dependency>-->
+
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-spring-boot-starter-basic</artifactId>
@@ -156,27 +161,12 @@
         </dependency>
 
         <dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-spring-boot-starter-jpa</artifactId>
-            <version>6.0.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>2.1.6.RELEASE</version>
         </dependency>
-        <!--activiti-modeler-->
-        <dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-modeler</artifactId>
-            <version>5.22.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.activiti</groupId>
-                    <artifactId>activiti-bpmn-model</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-security-config</artifactId>
-                    <groupId>org.springframework.security</groupId>
-                </exclusion>
-            </exclusions>
 
-        </dependency>
+
     </dependencies>
 
     <build>
@@ -186,8 +176,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-    </build
-    >
+    </build>
 </project>
 
 

@@ -49,6 +49,12 @@ public class SessionController {
     public ResponseBo kickOut(String sessionId, HttpServletRequest request, HttpServletResponse response) {
         try {
             String currentSessionId = request.getRequestedSessionId();
+
+            //Session session = sessionDAO.readSession(sessionId);
+            //session.setTimeout(0);
+            //session.stop();
+            //sessionDAO.delete(session);
+
             if (StringUtils.equals(sessionId, currentSessionId)) {
                 Subject subject = SecurityUtils.getSubject();
                 Session session = subject.getSession();
